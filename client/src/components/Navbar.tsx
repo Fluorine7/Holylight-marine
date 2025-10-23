@@ -65,15 +65,13 @@ export default function Navbar() {
             {/* Logo区域 */}
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer flex-shrink-0">
-                <div className="border-2 border-primary rounded px-3 py-2">
-                  <div
-                    className={`font-bold text-primary transition-all duration-300 ${
-                      isScrolled ? "text-xl" : "text-2xl"
-                    }`}
-                  >
-                    H<span className="text-orange-500">O</span>Lylight
-                  </div>
-                </div>
+                <img
+                  src="/logo.png"
+                  alt="Holylight Logo"
+                  className={`transition-all duration-300 ${
+                    isScrolled ? "h-10" : "h-12"
+                  }`}
+                />
                 <div className={`transition-all duration-300 ${isScrolled ? "text-xs" : "text-sm"}`}>
                   <div className="font-semibold text-gray-800 whitespace-nowrap">
                     深圳市好利来贸易有限公司

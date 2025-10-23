@@ -13,12 +13,12 @@ export default function Home() {
     {
       image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&h=800&fit=crop",
       title: "专业船舶配件系统供应商",
-      subtitle: "Make Breathing Cleaner",
+      subtitle: "Professional Marine Equipment System Supplier",
     },
     {
       image: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=1920&h=800&fit=crop",
       title: "游艇配套解决方案",
-      subtitle: "Professional Marine Equipment",
+      subtitle: "Yacht Equipment Solutions",
     },
     {
       image: "https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=1920&h=800&fit=crop",
@@ -190,7 +190,7 @@ export default function Home() {
                   公司主要经营船用配件、游艇配套设备、房车系统等产品，涵盖了从设计、研发、生产到销售、服务的完整产业链。我们秉承"友好合作、互惠互利"的经营理念，为客户提供一站式解决方案。
                 </p>
                 <p>
-                  正扬科技立足中国，布局全球，在中国、美国、墨西哥、印度设有生产基地或子公司，实现全球主要区域客户属地化服务，持续深化公司全球化战略。
+                  好利来立足深圳，布局全球，与多家国际知名品牌建立了战略合作关系，为全球客户提供优质的产品和专业的服务，持续深化公司的国际化战略。
                 </p>
               </div>
               <Button className="mt-6" size="lg">
@@ -272,7 +272,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 新闻资讯 - KUS风格布局 */}
+      {/* 新闻资讯 */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="container">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-center">
