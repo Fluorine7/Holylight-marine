@@ -41,14 +41,15 @@ export function getSessionCookieOptions(
 
   const isSecure = isSecureRequest(req);
   
-  // 在开发环境中，如果不是HTTPS，使用lax模式
-  // sameSite: "none" 必须配合 secure: true 使用
-  const sameSite = isSecure ? "none" : "lax";
+  // Always use lax for better compatibility with reverse proxies
+  // sameSite: "none" requires secure: true and can cause issues
+  const sameSite = "lax";
   
   return {
     httpOnly: true,
     path: "/",
     sameSite,
     secure: isSecure,
+    domain: undefined, // Let browser decide, avoid nginx interference
   };
 }
