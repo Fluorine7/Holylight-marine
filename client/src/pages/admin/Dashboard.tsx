@@ -1,8 +1,17 @@
 import { Package, FolderTree, Newspaper, TrendingUp } from "lucide-react";
 import AdminLayout from "../../components/AdminLayout";
+import ProtectedRoute from "../../components/ProtectedRoute";
 import { trpc } from "../../lib/trpc";
 
 export default function AdminDashboard() {
+  return (
+    <ProtectedRoute requireAdmin>
+      <DashboardContent />
+    </ProtectedRoute>
+  );
+}
+
+function DashboardContent() {
   const { data: products } = trpc.products.listAll.useQuery();
   const { data: categories } = trpc.productCategories.listAll.useQuery();
   const { data: news } = trpc.news.listAll.useQuery();
@@ -159,4 +168,5 @@ export default function AdminDashboard() {
     </AdminLayout>
   );
 }
+
 

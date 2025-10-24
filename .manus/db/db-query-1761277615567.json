@@ -1,0 +1,19 @@
+{
+  "query": "SELECT * FROM users LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT * FROM users LIMIT 5;",
+  "rows": [
+    {
+      "id": "SSaTYHgidqK6K9C4r55a9x",
+      "name": "Fluorine7",
+      "email": "zhuyj19980824@gmail.com",
+      "loginMethod": "email",
+      "role": "admin",
+      "createdAt": "2025-10-23 09:22:31",
+      "lastSignedIn": "2025-10-24 03:46:53"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\tloginMethod\trole\tcreatedAt\tlastSignedIn\nSSaTYHgidqK6K9C4r55a9x\tFluorine7\tzhuyj19980824@gmail.com\temail\tadmin\t2025-10-23 09:22:31\t2025-10-24 03:46:53\n",
+  "stderr": "",
+  "execution_time_ms": 1667
+}
