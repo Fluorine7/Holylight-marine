@@ -39,10 +39,16 @@ export function getSessionCookieOptions(
   //       ? hostname
   //       : undefined;
 
+  const isSecure = isSecureRequest(req);
+  
+  // 在开发环境中，如果不是HTTPS，使用lax模式
+  // sameSite: "none" 必须配合 secure: true 使用
+  const sameSite = isSecure ? "none" : "lax";
+  
   return {
     httpOnly: true,
     path: "/",
-    sameSite: "none",
-    secure: isSecureRequest(req),
+    sameSite,
+    secure: isSecure,
   };
 }

@@ -1,0 +1,19 @@
+{
+  "query": "SELECT id, name, email, loginMethod, role, createdAt, lastSignedIn FROM users WHERE id = 'admin'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, name, email, loginMethod, role, createdAt, lastSignedIn FROM users WHERE id = 'admin'",
+  "rows": [
+    {
+      "id": "admin",
+      "name": "管理员",
+      "email": "NULL",
+      "loginMethod": "simple",
+      "role": "user",
+      "createdAt": "2025-10-24 09:17:36",
+      "lastSignedIn": "2025-10-24 09:23:10"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\tloginMethod\trole\tcreatedAt\tlastSignedIn\nadmin\t管理员\tNULL\tsimple\tuser\t2025-10-24 09:17:36\t2025-10-24 09:23:10\n",
+  "stderr": "",
+  "execution_time_ms": 1616
+}
