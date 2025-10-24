@@ -13,10 +13,6 @@ import ProductsPage from "./pages/admin/Products";
 import CategoriesPage from "./pages/admin/Categories";
 import NewsManagementPage from "./pages/admin/NewsManagement";
 import Login from "./pages/Login";
-import Outboard from "./pages/Outboard";
-import Yacht from "./pages/Yacht";
-import Commercial from "./pages/Commercial";
-import RV from "./pages/RV";
 import Support from "./pages/Support";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
@@ -26,15 +22,11 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
-      <Route path={"/outboard"} component={Outboard} />
-      <Route path={"/yacht"} component={Yacht} />
-      <Route path={"/commercial"} component={Commercial} />
-      <Route path={"/rv"} component={RV} />
+      <Route path={"/shop"} component={ProductShop} />
+      <Route path={"/product/:id"} component={ProductDetail} />
       <Route path={"/support"} component={Support} />
       <Route path={"/news"} component={News} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/shop" component={ProductShop} />
-        <Route path="/product/:id" component={ProductDetail} />
+      <Route path={"/contact"} component={Contact} />
       <Route path={"/login"} component={Login} />
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/dashboard"} component={AdminDashboard} />
@@ -70,3 +62,4 @@ function App() {
 }
 
 export default App;
+

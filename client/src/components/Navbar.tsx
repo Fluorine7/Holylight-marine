@@ -21,10 +21,7 @@ export default function Navbar() {
 
   const navItems = [
     { name: "首页", path: "/" },
-    { name: "舷外机船配套", path: "/outboard" },
-    { name: "游艇", path: "/yacht" },
-    { name: "商业船", path: "/commercial" },
-    { name: "房车", path: "/rv" },
+    { name: "产品展示", path: "/shop" },
     { name: "技术支持", path: "/support" },
     { name: "新闻动态", path: "/news" },
     { name: "联系我们", path: "/contact" },
