@@ -37,13 +37,15 @@ export type Banner = typeof banners.$inferSelect;
 export type InsertBanner = typeof banners.$inferInsert;
 
 /**
- * 产品类别表
+ * 产品类别表（支持多级分类）
  */
 export const productCategories = mysqlTable("productCategories", {
   id: int("id").primaryKey().autoincrement(),
   name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
   description: text("description"),
-  imageUrl: text("imageUrl").notNull(),
+  imageUrl: text("imageUrl"),
+  parentId: int("parentId"), // 父分类ID，null表示顶级分类
   order: int("order").default(0).notNull(),
   isActive: boolean("isActive").default(true).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
@@ -71,15 +73,39 @@ export type Partner = typeof partners.$inferSelect;
 export type InsertPartner = typeof partners.$inferInsert;
 
 /**
+ * 产品表
+ */
+export const products = mysqlTable("products", {
+  id: int("id").primaryKey().autoincrement(),
+  categoryId: int("categoryId").notNull(), // 所属分类ID
+  name: varchar("name", { length: 500 }).notNull(),
+  model: varchar("model", { length: 200 }), // 型号
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  description: text("description"), // 产品描述
+  specifications: text("specifications"), // 产品参数（JSON格式）
+  images: text("images"), // 产品图片URL数组（JSON格式）
+  order: int("order").default(0).notNull(),
+  isPublished: boolean("isPublished").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
+});
+
+export type Product = typeof products.$inferSelect;
+export type InsertProduct = typeof products.$inferInsert;
+
+/**
  * 新闻资讯表
  */
 export const news = mysqlTable("news", {
   id: int("id").primaryKey().autoincrement(),
   title: varchar("title", { length: 500 }).notNull(),
-  content: text("content"),
-  imageUrl: text("imageUrl").notNull(),
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  summary: text("summary"), // 摘要
+  content: text("content"), // 正文内容
+  coverImage: text("coverImage"), // 封面图
+  category: varchar("category", { length: 100 }), // 分类（公司新闻、行业资讯等）
   publishDate: timestamp("publishDate").defaultNow().notNull(),
-  isActive: boolean("isActive").default(true).notNull(),
+  isPublished: boolean("isPublished").default(true).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
 });

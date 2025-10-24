@@ -67,8 +67,10 @@ export const appRouter = router({
     create: adminProcedure
       .input(z.object({
         name: z.string(),
+        slug: z.string(),
         description: z.string().optional(),
-        imageUrl: z.string(),
+        imageUrl: z.string().optional(),
+        parentId: z.number().optional(),
         order: z.number().default(0),
       }))
       .mutation(({ input }) => db.createProductCategory(input)),
@@ -127,8 +129,11 @@ export const appRouter = router({
     create: adminProcedure
       .input(z.object({
         title: z.string(),
+        slug: z.string(),
+        summary: z.string().optional(),
         content: z.string().optional(),
-        imageUrl: z.string(),
+        coverImage: z.string().optional(),
+        category: z.string().optional(),
         publishDate: z.date().optional(),
       }))
       .mutation(({ input }) => db.createNews(input)),
@@ -136,10 +141,13 @@ export const appRouter = router({
       .input(z.object({
         id: z.number(),
         title: z.string().optional(),
+        slug: z.string().optional(),
+        summary: z.string().optional(),
         content: z.string().optional(),
-        imageUrl: z.string().optional(),
+        coverImage: z.string().optional(),
+        category: z.string().optional(),
         publishDate: z.date().optional(),
-        isActive: z.boolean().optional(),
+        isPublished: z.boolean().optional(),
       }))
       .mutation(({ input }) => {
         const { id, ...data } = input;
@@ -148,6 +156,53 @@ export const appRouter = router({
     delete: adminProcedure
       .input(z.object({ id: z.number() }))
       .mutation(({ input }) => db.deleteNews(input.id)),
+  }),
+
+  // 产品管理
+  products: router({
+    list: publicProcedure.query(() => db.getPublishedProducts()),
+    listAll: adminProcedure.query(() => db.getAllProducts()),
+    getByCategory: publicProcedure
+      .input(z.object({ categoryId: z.number() }))
+      .query(({ input }) => db.getProductsByCategory(input.categoryId)),
+    getBySlug: publicProcedure
+      .input(z.object({ slug: z.string() }))
+      .query(({ input }) => db.getProductBySlug(input.slug)),
+    getById: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .query(({ input }) => db.getProductById(input.id)),
+    create: adminProcedure
+      .input(z.object({
+        categoryId: z.number(),
+        name: z.string(),
+        model: z.string().optional(),
+        slug: z.string(),
+        description: z.string().optional(),
+        specifications: z.string().optional(),
+        images: z.string().optional(),
+        order: z.number().default(0),
+      }))
+      .mutation(({ input }) => db.createProduct(input)),
+    update: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        categoryId: z.number().optional(),
+        name: z.string().optional(),
+        model: z.string().optional(),
+        slug: z.string().optional(),
+        description: z.string().optional(),
+        specifications: z.string().optional(),
+        images: z.string().optional(),
+        order: z.number().optional(),
+        isPublished: z.boolean().optional(),
+      }))
+      .mutation(({ input }) => {
+        const { id, ...data } = input;
+        return db.updateProduct(id, data);
+      }),
+    delete: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(({ input }) => db.deleteProduct(input.id)),
   }),
 
   // 公司信息管理

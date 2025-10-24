@@ -1,0 +1,9 @@
+{
+  "query": "-- 1. 更新产品分类表，添加新字段\nALTER TABLE productCategories \nADD COLUMN slug VARCHAR(255) NOT NULL DEFAULT '',\nADD COLUMN parentId INT NULL;\n\n-- 2. 修改imageUrl为可空\nALTER TABLE productCategories MODIFY COLUMN imageUrl TEXT NULL;\n\n-- 3. 为现有记录生成slug\nUPDATE productCategories SET slug = CONCAT('category-', id) WHERE slug = '';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute -- 1. 更新产品分类表，添加新字段\nALTER TABLE productCategories \nADD COLUMN slug VARCHAR(255) NOT NULL DEFAULT '',\nADD COLUMN parentId INT NULL;\n\n-- 2. 修改imageUrl为可空\nALTER TABLE productCategories MODIFY COLUMN imageUrl TEXT NULL;\n\n-- 3. 为现有记录生成slug\nUPDATE productCategories SET slug = CONCAT('category-', id) WHERE slug = '';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 3045
+}

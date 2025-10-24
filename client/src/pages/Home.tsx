@@ -86,7 +86,7 @@ export default function Home() {
   const news = newsItems.length > 0 ? newsItems.map(n => ({
     title: n.title,
     date: new Date(n.publishDate).toLocaleDateString('zh-CN'),
-    image: n.imageUrl,
+    image: n.coverImage || '',
   })) : [
     {
       title: "好利来与GUIDI达成战略合作",
@@ -276,7 +276,7 @@ export default function Home() {
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={category.imageUrl}
+                      src={category.imageUrl || ''}
                       alt={category.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />

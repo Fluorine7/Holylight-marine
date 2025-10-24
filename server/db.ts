@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, isNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { 
   InsertUser, 
@@ -9,6 +9,9 @@ import {
   productCategories,
   ProductCategory,
   InsertProductCategory,
+  products,
+  Product,
+  InsertProduct,
   partners,
   Partner,
   InsertPartner,
@@ -250,7 +253,7 @@ export async function getActiveNews(): Promise<News[]> {
   if (!db) return [];
   
   const result = await db.select().from(news)
-    .where(eq(news.isActive, true))
+    .where(eq(news.isPublished, true))
     .orderBy(news.publishDate);
   return result;
 }
@@ -301,3 +304,121 @@ export async function upsertCompanyInfo(info: InsertCompanyInfo): Promise<void> 
     },
   });
 }
+
+
+// ========== 产品相关操作 ==========
+
+export async function getAllProducts(): Promise<Product[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db.select().from(products).orderBy(products.order);
+  return result;
+}
+
+export async function getPublishedProducts(): Promise<Product[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db.select().from(products)
+    .where(eq(products.isPublished, true))
+    .orderBy(products.order);
+  return result;
+}
+
+export async function getProductsByCategory(categoryId: number): Promise<Product[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db.select().from(products)
+    .where(eq(products.categoryId, categoryId))
+    .orderBy(products.order);
+  return result;
+}
+
+export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  
+  const result = await db.select().from(products)
+    .where(eq(products.slug, slug))
+    .limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getProductById(id: number): Promise<Product | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  
+  const result = await db.select().from(products)
+    .where(eq(products.id, id))
+    .limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function createProduct(product: InsertProduct): Promise<Product> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(products).values(product);
+  const id = Number(result[0].insertId);
+  const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
+  return created[0];
+}
+
+export async function updateProduct(id: number, data: Partial<InsertProduct>): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.update(products).set(data).where(eq(products.id, id));
+}
+
+export async function deleteProduct(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.delete(products).where(eq(products.id, id));
+}
+
+// 获取分类及其子分类
+export async function getCategoryWithChildren(parentId: number | null = null): Promise<ProductCategory[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  if (parentId === null) {
+    // 获取顶级分类
+    const result = await db.select().from(productCategories)
+      .where(isNull(productCategories.parentId))
+      .orderBy(productCategories.order);
+    return result;
+  } else {
+    // 获取指定父分类的子分类
+    const result = await db.select().from(productCategories)
+      .where(eq(productCategories.parentId, parentId))
+      .orderBy(productCategories.order);
+    return result;
+  }
+}
+
+// 获取分类的完整路径（面包屑导航用）
+export async function getCategoryPath(categoryId: number): Promise<ProductCategory[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const path: ProductCategory[] = [];
+  let currentId: number | null = categoryId;
+  
+  while (currentId !== null) {
+    const category = await db.select().from(productCategories)
+      .where(eq(productCategories.id, currentId))
+      .limit(1);
+    
+    if (category.length === 0) break;
+    
+    path.unshift(category[0]);
+    currentId = category[0].parentId;
+  }
+  
+  return path;
+}
+

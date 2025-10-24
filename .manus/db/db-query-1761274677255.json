@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE news SET slug = CONCAT('news-', id) WHERE slug = '';\nALTER TABLE news ADD UNIQUE INDEX idx_news_slug (slug);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute UPDATE news SET slug = CONCAT('news-', id) WHERE slug = '';\nALTER TABLE news ADD UNIQUE INDEX idx_news_slug (slug);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 2129
+}

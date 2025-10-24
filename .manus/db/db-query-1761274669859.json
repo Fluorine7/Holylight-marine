@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE news \nADD COLUMN slug VARCHAR(500) NOT NULL DEFAULT '',\nADD COLUMN summary TEXT NULL,\nADD COLUMN coverImage TEXT NULL,\nADD COLUMN category VARCHAR(100) NULL,\nADD COLUMN isPublished BOOLEAN NOT NULL DEFAULT TRUE;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute ALTER TABLE news \nADD COLUMN slug VARCHAR(500) NOT NULL DEFAULT '',\nADD COLUMN summary TEXT NULL,\nADD COLUMN coverImage TEXT NULL,\nADD COLUMN category VARCHAR(100) NULL,\nADD COLUMN isPublished BOOLEAN NOT NULL DEFAULT TRUE;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 2939
+}
