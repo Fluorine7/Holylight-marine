@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUp, Phone, Mail, MessageCircle, FileText, Wrench, HelpCircle } from "lucide-react";
+import { ArrowUp, Phone, Mail, MessageCircle, FileText, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -50,33 +50,7 @@ export default function Support() {
     },
   ];
 
-  // 常见问题
-  const faqs = [
-    {
-      question: "如何选择合适的舷外机？",
-      answer: "选择舷外机需要考虑船体大小、用途、预算等因素。我们的专业团队可以根据您的具体需求提供选型建议。",
-    },
-    {
-      question: "产品质保期是多久？",
-      answer: "不同产品的质保期不同，一般为1-3年。具体质保政策请咨询我们的销售人员。",
-    },
-    {
-      question: "是否提供安装服务？",
-      answer: "是的，我们提供专业的安装调试服务。我们的工程师团队经验丰富，确保设备正确安装和运行。",
-    },
-    {
-      question: "如何获取产品技术资料？",
-      answer: "您可以在我们的网站下载产品手册，或联系我们的技术支持团队获取详细的技术资料。",
-    },
-    {
-      question: "售后服务包括哪些内容？",
-      answer: "我们的售后服务包括技术咨询、故障诊断、维修保养、配件供应等全方位服务。",
-    },
-    {
-      question: "是否支持定制化解决方案？",
-      answer: "是的，我们可以根据客户的特殊需求提供定制化的产品和解决方案。",
-    },
-  ];
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -143,39 +117,7 @@ export default function Support() {
         </div>
       </section>
 
-      {/* 常见问题 */}
-      <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
-        <div className="container">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-center">
-            常见问题
-          </h2>
-          <div className="text-lg md:text-xl text-gray-600 mb-12 text-center">
-            Frequently Asked Questions
-          </div>
-          <div className="max-w-4xl mx-auto space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <HelpCircle className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold mb-2 text-gray-800">
-                      {faq.question}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* 技术资料下载 */}
       <section className="py-12 md:py-16 lg:py-20">
