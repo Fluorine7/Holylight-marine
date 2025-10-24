@@ -26,10 +26,10 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        // 登录成功，延迟一下再跳转，等待cookie生效
+        // 登录成功，使用location.replace避免历史记录引起的问题
         setTimeout(() => {
-          window.location.href = "/admin";
-        }, 100);
+          window.location.replace("/admin");
+        }, 200);
       } else {
         setError(data.error || "登录失败");
       }

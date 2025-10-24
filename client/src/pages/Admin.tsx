@@ -2,7 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getLoginUrl } from "@/const";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import BannerManagement from "@/components/admin/BannerManagement";
 import ProductCategoryManagement from "@/components/admin/ProductCategoryManagement";
@@ -10,14 +10,28 @@ import PartnerManagement from "@/components/admin/PartnerManagement";
 import NewsManagement from "@/components/admin/NewsManagement";
 
 export default function Admin() {
-  const { user, loading, isAuthenticated, logout } = useAuth();
+  const { user, loading, isAuthenticated, logout, refresh } = useAuth();
   const [, setLocation] = useLocation();
+  const [retryCount, setRetryCount] = useState(0);
 
+  // 延迟检查认证状态，给cookie更多时间生效
   useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      window.location.href = getLoginUrl();
+    if (loading) return;
+    
+    if (!isAuthenticated && retryCount < 3) {
+      // 尝试重新获取用户信息
+      const timer = setTimeout(() => {
+        refresh();
+        setRetryCount(prev => prev + 1);
+      }, 500);
+      return () => clearTimeout(timer);
     }
-  }, [loading, isAuthenticated]);
+    
+    if (!isAuthenticated && retryCount >= 3) {
+      // 多次重试后仍未认证，跳转到登录页
+      window.location.replace(getLoginUrl());
+    }
+  }, [loading, isAuthenticated, retryCount, refresh]);
 
   useEffect(() => {
     if (user && user.role !== "admin") {
@@ -25,7 +39,7 @@ export default function Admin() {
     }
   }, [user, setLocation]);
 
-  if (loading) {
+  if (loading || (!isAuthenticated && retryCount < 3)) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg">加载中...</div>
