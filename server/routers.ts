@@ -64,6 +64,9 @@ export const appRouter = router({
   productCategories: router({
     list: publicProcedure.query(() => db.getActiveProductCategories()),
     listAll: adminProcedure.query(() => db.getAllProductCategories()),
+    getById: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .query(({ input }) => db.getProductCategoryById(input.id)),
     create: adminProcedure
       .input(z.object({
         name: z.string(),

@@ -187,6 +187,14 @@ export async function updateProductCategory(id: number, data: Partial<InsertProd
   await db.update(productCategories).set(data).where(eq(productCategories.id, id));
 }
 
+export async function getProductCategoryById(id: number): Promise<ProductCategory | null> {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db.select().from(productCategories).where(eq(productCategories.id, id)).limit(1);
+  return result[0] || null;
+}
+
 export async function deleteProductCategory(id: number): Promise<void> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
