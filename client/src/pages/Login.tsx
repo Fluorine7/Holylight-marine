@@ -26,9 +26,10 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        // 登录成功，跳转到管理后台
-        navigate("/admin");
-        window.location.reload(); // 刷新页面以更新用户状态
+        // 登录成功，延迟一下再跳转，等待cookie生效
+        setTimeout(() => {
+          window.location.href = "/admin";
+        }, 100);
       } else {
         setError(data.error || "登录失败");
       }
