@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowUp } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -43,30 +44,38 @@ export default function Home() {
     name: c.name,
     imageUrl: c.imageUrl,
     description: c.description || "",
+    path: c.name === "舷外机船配套" ? "/outboard" : 
+          c.name === "游艇" ? "/yacht" :
+          c.name === "商业船" ? "/commercial" :
+          c.name === "房车" ? "/rv" : "/",
   })) : [
     {
       id: 1,
-      name: "舞外机船配套",
+      name: "舷外机船配套",
       imageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop",
-      description: "专业的舞外机配套产品和解决方案",
+      description: "专业的舷外机配套产品和解决方案",
+      path: "/outboard",
     },
     {
       id: 2,
       name: "游艇",
       imageUrl: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=400&h=300&fit=crop",
       description: "高端游艇配套设备和系统",
+      path: "/yacht",
     },
     {
       id: 3,
       name: "商业船",
       imageUrl: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=400&h=300&fit=crop",
       description: "商业船舶配套产品和服务",
+      path: "/commercial",
     },
     {
       id: 4,
       name: "房车",
       imageUrl: "https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=400&h=300&fit=crop",
       description: "房车配套系统和解决方案",
+      path: "/rv",
     },
   ];
 
@@ -217,9 +226,11 @@ export default function Home() {
                   好利来立足深圳，布局全球，与多家国际知名品牌建立了战略合作关系，为全球客户提供优质的产品和专业的服务，持续深化公司的国际化战略。
                 </p>
               </div>
-              <Button className="mt-6" size="lg">
-                查看更多
-              </Button>
+              <Link href="/contact">
+                <Button className="mt-6" size="lg">
+                  查看更多
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -250,9 +261,11 @@ export default function Home() {
               ))}
             </div>
             <div className="text-center mt-8">
-              <Button variant="outline" size="lg">
-                更多
-              </Button>
+              <Link href="/contact">
+                <Button variant="outline" size="lg">
+                  更多
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -270,31 +283,32 @@ export default function Home() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {categories.map((category) => (
-                <div
-                  key={category.id}
-                  className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={category.imageUrl || ''}
-                      alt={category.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Link key={category.id} href={category.path}>
+                  <div className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={category.imageUrl || ''}
+                        alt={category.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <div className="p-4 md:p-6">
+                      <h3 className="text-lg md:text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                        {category.name}
+                      </h3>
+                      <p className="text-gray-600 text-xs md:text-sm">{category.description}</p>
+                    </div>
                   </div>
-                  <div className="p-4 md:p-6">
-                    <h3 className="text-lg md:text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="text-gray-600 text-xs md:text-sm">{category.description}</p>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
             <div className="text-center mt-8">
-              <Button variant="outline" size="lg">
-                更多
-              </Button>
+              <Link href="/outboard">
+                <Button variant="outline" size="lg">
+                  更多
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -313,49 +327,52 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               {/* 大图新闻 */}
               {news[0] && (
-                <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden group cursor-pointer shadow-lg">
-                  <img
-                    src={news[0].image}
-                    alt={news[0].title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
-                    <h3 className="text-xl md:text-2xl font-bold mb-2 drop-shadow-lg">
-                      {news[0].title}
-                    </h3>
-                    <p className="text-xs md:text-sm opacity-90">{news[0].date}</p>
+                <Link href="/news">
+                  <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden group cursor-pointer shadow-lg">
+                    <img
+                      src={news[0].image}
+                      alt={news[0].title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
+                      <h3 className="text-xl md:text-2xl font-bold mb-2 drop-shadow-lg">
+                        {news[0].title}
+                      </h3>
+                      <p className="text-xs md:text-sm opacity-90">{news[0].date}</p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               )}
 
               {/* 小图新闻 */}
               <div className="flex flex-col gap-4 md:gap-6">
                 {news.slice(1).map((item, index) => (
-                  <div
-                    key={index}
-                    className="relative h-[195px] md:h-[242px] rounded-lg overflow-hidden group cursor-pointer shadow-lg"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 text-white">
-                      <h3 className="text-base md:text-lg font-bold mb-1 drop-shadow-lg">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs opacity-90">{item.date}</p>
+                  <Link key={index} href="/news">
+                    <div className="relative h-[195px] md:h-[242px] rounded-lg overflow-hidden group cursor-pointer shadow-lg">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 text-white">
+                        <h3 className="text-base md:text-lg font-bold mb-1 drop-shadow-lg">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs opacity-90">{item.date}</p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
             <div className="text-center mt-8">
-              <Button variant="outline" size="lg">
-                更多
-              </Button>
+              <Link href="/news">
+                <Button variant="outline" size="lg">
+                  更多
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

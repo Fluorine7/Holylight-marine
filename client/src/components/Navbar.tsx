@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [location, navigate] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +29,23 @@ export default function Navbar() {
     { name: "新闻动态", path: "/news" },
     { name: "联系我们", path: "/contact" },
   ];
+
+  // 搜索功能
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      // 跳转到新闻页面并传递搜索参数
+      navigate(`/news?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  // 处理Enter键搜索
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <>
@@ -111,11 +129,15 @@ export default function Navbar() {
                   type="text"
                   placeholder="搜索"
                   className="w-40 pr-10 h-9"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={handleSearchKeyPress}
                 />
                 <Button
                   size="icon"
                   variant="ghost"
                   className="absolute right-0 top-0 h-full hover:bg-primary hover:text-white"
+                  onClick={handleSearch}
                 >
                   <Search className="w-4 h-4" />
                 </Button>
@@ -163,7 +185,24 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="mt-4 px-4">
-                <Input type="text" placeholder="搜索" className="w-full" />
+                <div className="relative">
+                  <Input
+                    type="text"
+                    placeholder="搜索"
+                    className="w-full pr-10"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={handleSearchKeyPress}
+                  />
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="absolute right-0 top-0 h-full hover:bg-primary hover:text-white"
+                    onClick={handleSearch}
+                  >
+                    <Search className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
             </nav>
           </div>
