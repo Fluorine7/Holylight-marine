@@ -21,49 +21,49 @@ const offices: Office[] = [
   {
     id: "shenzhen",
     name: "深圳总部",
-    address: "广东省深圳市南山区科技园南区",
-    phone: "+86 755-8888-8888",
-    email: "shenzhen@holylight-marine.com",
+    address: "深圳市南山区太子路海景广场22C",
+    phone: "0755-26670700",
+    email: "holylight@holylight-marine.com",
     coordinates: [113.9428, 22.5329], // 深圳南山区
   },
   {
     id: "zhuhai",
     name: "珠海办事处",
-    address: "广东省珠海市香洲区吉大路",
-    phone: "+86 756-8888-8888",
-    email: "zhuhai@holylight-marine.com",
+    address: "珠海市金湾区红旗镇南翔路23号德利万办公室楼305室",
+    phone: "0756-7239326",
+    email: "henry@holylight-marine.com",
     coordinates: [113.5765, 22.2569], // 珠海香洲区
   },
   {
     id: "dalian",
     name: "大连办事处",
-    address: "辽宁省大连市中山区人民路",
-    phone: "+86 411-8888-8888",
-    email: "dalian@holylight-marine.com",
+    address: "辽宁省大连市甘井子区贤林园金寓花园一期31号楼一单元301室",
+    phone: "18663132790",
+    email: "jyp@holylight-marine.com",
     coordinates: [121.6147, 38.9140], // 大连中山区
   },
   {
     id: "qingdao",
     name: "青岛办事处",
-    address: "山东省青岛市市南区香港中路",
-    phone: "+86 532-8888-8888",
-    email: "qingdao@holylight-marine.com",
+    address: "",
+    phone: "18724756865",
+    email: "nickg@holylight-marine.com",
     coordinates: [120.3826, 36.0671], // 青岛市南区
   },
   {
     id: "suzhou",
     name: "苏州办事处",
-    address: "江苏省苏州市工业园区星湖街",
-    phone: "+86 512-8888-8888",
-    email: "suzhou@holylight-marine.com",
+    address: "江苏省苏州市吴中区双银国际金融城2幢314室",
+    phone: "0512-67671901",
+    email: "lena@holylight-marine.com",
     coordinates: [120.7370, 31.3041], // 苏州工业园区
   },
   {
     id: "hunan",
     name: "湖南办事处",
-    address: "湖南省长沙市岳麓区麓山南路",
-    phone: "+86 731-8888-8888",
-    email: "hunan@holylight-marine.com",
+    address: "",
+    phone: "15364325158",
+    email: "jason@holylight-marine.com",
     coordinates: [112.9388, 28.2282], // 长沙岳麓区
   },
 ];
@@ -92,14 +92,10 @@ export default function Contact() {
   // 加载高德地图
   useEffect(() => {
     // 高德地图API Key（请替换为您自己的Key）
-    const AMAP_KEY = "YOUR_AMAP_KEY_HERE";
-    const AMAP_SECRET = "YOUR_AMAP_SECRET_HERE";
+    const AMAP_KEY = "ec50db4c4c6a33084662b86442ec3fad";
+    const AMAP_SECRET = "5ee52afe68a64504f9353614158c8d3d";
 
-    // 如果没有配置Key，显示提示信息
-    if (AMAP_KEY === "YOUR_AMAP_KEY_HERE") {
-      console.log("请配置高德地图API Key");
-      return;
-    }
+    // API Key已配置，直接加载地图
 
     // 设置安全密钥
     window._AMapSecurityConfig = {
