@@ -10,6 +10,17 @@ function getQueryParam(req: Request, key: string): string | undefined {
 }
 
 export function registerOAuthRoutes(app: Express) {
+  // 登录入口
+  app.get("/api/auth/login", (req: Request, res: Response) => {
+    const oauthPortalUrl = process.env.VITE_OAUTH_PORTAL_URL;
+    if (!oauthPortalUrl) {
+      res.status(500).json({ error: "OAuth portal URL not configured" });
+      return;
+    }
+    res.redirect(302, oauthPortalUrl);
+  });
+
+  // OAuth回调
   app.get("/api/oauth/callback", async (req: Request, res: Response) => {
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
