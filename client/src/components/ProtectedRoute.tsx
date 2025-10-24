@@ -22,9 +22,9 @@ export default function ProtectedRoute({ children, requireAdmin = false }: Prote
     );
   }
 
-  // 未登录，重定向到首页
+  // 未登录，重定向到登录页
   if (!user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/login" />;
   }
 
   // 需要管理员权限但用户不是管理员

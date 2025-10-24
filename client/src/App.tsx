@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import AdminDashboard from "./pages/admin/Dashboard";
+import Login from "./pages/Login";
 import Outboard from "./pages/Outboard";
 import Yacht from "./pages/Yacht";
 import Commercial from "./pages/Commercial";
@@ -27,6 +28,7 @@ function Router() {
       <Route path={"/support"} component={Support} />
       <Route path={"/news"} component={News} />
       <Route path={"/contact"} component={Contact} />
+      <Route path={"/login"} component={Login} />
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/dashboard"} component={AdminDashboard} />
       <Route path={"/404"} component={NotFound} />
