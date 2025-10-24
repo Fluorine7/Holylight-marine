@@ -7,6 +7,9 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import AdminDashboard from "./pages/admin/Dashboard";
+import ProductsPage from "./pages/admin/Products";
+import CategoriesPage from "./pages/admin/Categories";
+import NewsManagementPage from "./pages/admin/NewsManagement";
 import Login from "./pages/Login";
 import Outboard from "./pages/Outboard";
 import Yacht from "./pages/Yacht";
@@ -31,6 +34,9 @@ function Router() {
       <Route path={"/login"} component={Login} />
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/dashboard"} component={AdminDashboard} />
+      <Route path={"/admin/products"} component={ProductsPage} />
+      <Route path={"/admin/categories"} component={CategoriesPage} />
+      <Route path={"/admin/news"} component={NewsManagementPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
