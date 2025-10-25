@@ -273,26 +273,25 @@ export default function Contact() {
                   
                   {/* 办事处详细信息 */}
                   <div className="p-6 space-y-4">
-                    {/* 地址 */}
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                      <div className="flex-1">
-                        <p className="text-xs text-gray-500 mb-1 font-semibold uppercase tracking-wide">地址</p>
-                        <p className="text-sm text-gray-800 leading-relaxed">{office.address}</p>
+                    {/* 地址 - 仅在有地址时显示 */}
+                    {office.address && (
+                      <div className="flex items-start gap-3">
+                        <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                        <div className="flex-1">
+                          <p className="text-xs text-gray-500 mb-1 font-semibold uppercase tracking-wide">地址</p>
+                          <p className="text-sm text-gray-800 leading-relaxed">{office.address}</p>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
-                    {/* 电话 */}
+                    {/* 电话 - 移除tel链接 */}
                     <div className="flex items-start gap-3">
                       <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                       <div className="flex-1">
                         <p className="text-xs text-gray-500 mb-1 font-semibold uppercase tracking-wide">电话</p>
-                        <a
-                          href={`tel:${office.phone}`}
-                          className="text-sm text-gray-800 hover:text-primary transition-colors font-medium"
-                        >
+                        <p className="text-sm text-gray-800 font-medium">
                           {office.phone}
-                        </a>
+                        </p>
                       </div>
                     </div>
 
