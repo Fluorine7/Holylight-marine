@@ -353,43 +353,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* 地图集成说明 */}
-            <div className="mt-6 p-6 bg-blue-50 rounded-lg border border-blue-100">
-              <h4 className="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
-                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                地图集成说明
-              </h4>
-              <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700 leading-relaxed">
-                <li>
-                  访问{" "}
-                  <a
-                    href="https://lbs.amap.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline font-semibold"
-                  >
-                    高德开放平台
-                  </a>{" "}
-                  注册账号（个人开发者免费）
-                </li>
-                <li>创建应用并获取 <strong>Web 端（JS API 2.0）</strong>的 Key 和安全密钥</li>
-                <li>在 <code className="bg-gray-200 px-2 py-1 rounded text-xs">Contact.tsx</code> 文件中替换 <code className="bg-gray-200 px-2 py-1 rounded text-xs">AMAP_KEY</code> 和 <code className="bg-gray-200 px-2 py-1 rounded text-xs">AMAP_SECRET</code></li>
-                <li>刷新页面即可看到地图和所有办事处位置标记</li>
-              </ol>
-              <div className="mt-4 p-3 bg-white rounded border border-blue-200">
-                <p className="text-xs text-gray-600 flex items-start gap-2">
-                  <svg className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>
-                    <strong>提示：</strong>高德地图个人开发者账号每天有 <strong>30万次</strong> 免费调用额度，足够中小型网站使用。
-                    点击地图标记可查看办事处详细信息。
-                  </span>
-                </p>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
