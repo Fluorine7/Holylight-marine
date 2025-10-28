@@ -64,6 +64,9 @@ export const appRouter = router({
   productCategories: router({
     list: publicProcedure.query(() => db.getActiveProductCategories()),
     listAll: publicProcedure.query(() => db.getAllProductCategories()),
+    listTopLevel: publicProcedure
+      .input(z.object({ limit: z.number().optional() }).optional())
+      .query(({ input }) => db.getTopLevelCategories(input?.limit)),
     getById: publicProcedure
       .input(z.object({ id: z.number() }))
       .query(({ input }) => db.getProductCategoryById(input.id)),

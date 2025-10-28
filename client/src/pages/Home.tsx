@@ -12,7 +12,7 @@ export default function Home() {
 
   // 从数据库加载数据
   const { data: banners = [] } = trpc.banners.list.useQuery();
-  const { data: productCategories = [] } = trpc.productCategories.list.useQuery();
+  const { data: productCategories = [] } = trpc.productCategories.listTopLevel.useQuery({ limit: 8 });
   const { data: partners = [] } = trpc.partners.list.useQuery();
   const { data: newsItems = [] } = trpc.news.list.useQuery();
 

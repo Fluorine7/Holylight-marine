@@ -170,6 +170,22 @@ export async function getActiveProductCategories(): Promise<ProductCategory[]> {
   return result;
 }
 
+export async function getTopLevelCategories(limit?: number): Promise<ProductCategory[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  let query = db.select().from(productCategories)
+    .where(isNull(productCategories.parentId))
+    .orderBy(productCategories.order);
+  
+  if (limit) {
+    query = query.limit(limit) as any;
+  }
+  
+  const result = await query;
+  return result;
+}
+
 export async function createProductCategory(category: InsertProductCategory): Promise<ProductCategory> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
