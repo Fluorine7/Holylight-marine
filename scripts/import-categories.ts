@@ -31,10 +31,84 @@ function generateSlug(name: string, parentSlug?: string): string {
 }
 
 async function main() {
-  // 读取分类数据
-  const categoriesData = JSON.parse(
-    fs.readFileSync("/tmp/categories_structured.json", "utf-8")
-  );
+  // 分类数据
+  const categoriesData = {
+    "水泵": {
+      "Rule": ["舱底泵", "淋浴排水系统"],
+      "Jabsco": ["排污泵", "压力供水系统", "冲洗泵", "淡水泵"],
+      "Flojet": ["压力供水系统"],
+      "CEM": ["电动泵", "驳船电动泵", "发动机驱动泵", "液压马达泵", "水压系统", "电子水压系统", "电动泵配件", "数字流量计", "手动泵", "循环泵", "12-24V直流电动泵"]
+    },
+    "通风系统": {
+      "Rule": ["轴流式风机"],
+      "Jabsco": ["蜗牛式风机"],
+      "CEM": ["轴流风机", "风机配件"],
+      "RULE": ["轴流式风机"]
+    },
+    "锚机": {
+      "Italwinch": ["立式锚机", "卧式锚机", "绞盘"]
+    },
+    "舵机": {
+      "Multiflex": ["挂机"],
+      "LS": ["船内机方向控制"],
+      "Dometic": ["船外机方向控制"],
+      "主机遥控": ["NHK MEC", "机械遥控", "电动遥控"]
+    },
+    "电池开关": {
+      "Blusea": []
+    },
+    "雨刮器": {
+      "摆臂式": [],
+      "Roca": ["摆臂式"],
+      "Speich": [],
+      "Decca": [],
+      "roca": ["Exalto"],
+      "平移式": ["Decca"]
+    },
+    "喇叭": {
+      "Marco": []
+    },
+    "液位计": {
+      "KUS": ["仪表", "传感器"]
+    },
+    "尾轴密封": {
+      "PYI": []
+    },
+    "碰球": {
+      "Polyform 挪威": []
+    },
+    "锌块": {
+      "Martyr": ["轴锌块", "压浪板锌块", "舵锌块", "船体锌块"]
+    },
+    "磁罗经": {
+      "Ritchie": []
+    },
+    "马桶": {
+      "Jabsco": ["电动马桶", "手动马桶"],
+      "TECMA": [],
+      "Planus": []
+    },
+    "灭火器": {
+      "Fireboy": []
+    },
+    "岸电插头插座": {
+      "Marinco": []
+    },
+    "污水处理装置": {
+      "TECNICOMAR": [],
+      "海水淡化装置": [],
+      "Aquaprime": [],
+      "油水分离器": [],
+      "Griffin": []
+    },
+    "冰箱": {
+      "Dometic": []
+    },
+    "充电器": {
+      "Victron": []
+    },
+    "逆变器": {}
+  };
 
   // 连接数据库 - 使用DATABASE_URL
   const databaseUrl = process.env.DATABASE_URL;
