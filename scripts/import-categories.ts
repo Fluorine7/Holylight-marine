@@ -135,6 +135,7 @@ async function main() {
     user,
     password,
     database,
+    charset: 'utf8mb4',
     ssl: needSSL ? {
       minVersion: 'TLSv1.2',
       rejectUnauthorized: true,
