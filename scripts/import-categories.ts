@@ -126,16 +126,19 @@ async function main() {
   
   console.log(`正在连接数据库: ${host}:${port}/${database}`);
   
+  // 判断是否需要SSL(TiDB Cloud需要,本地MySQL不需要)
+  const needSSL = !host.includes('localhost') && !host.includes('127.0.0.1');
+  
   const connection = await mysql.createConnection({
     host,
     port: parseInt(port),
     user,
     password,
     database,
-    ssl: {
+    ssl: needSSL ? {
       minVersion: 'TLSv1.2',
       rejectUnauthorized: true,
-    },
+    } : false,
   });
 
   const db = drizzle(connection);
