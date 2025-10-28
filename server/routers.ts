@@ -63,7 +63,7 @@ export const appRouter = router({
   // 产品类别管理
   productCategories: router({
     list: publicProcedure.query(() => db.getActiveProductCategories()),
-    listAll: adminProcedure.query(() => db.getAllProductCategories()),
+    listAll: publicProcedure.query(() => db.getAllProductCategories()),
     getById: publicProcedure
       .input(z.object({ id: z.number() }))
       .query(({ input }) => db.getProductCategoryById(input.id)),
