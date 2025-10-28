@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Search, Grid, List, ChevronDown, ChevronRight } from "lucide-react";
 import { trpc } from "../lib/trpc";
 import { Link } from "wouter";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  parentId: number | null;
+  order: number;
+  isActive: boolean;
+  children?: Category[];
+}
 
 export default function ProductShop() {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
@@ -14,6 +24,34 @@ export default function ProductShop() {
 
   const { data: categories } = trpc.productCategories.listAll.useQuery();
   const { data: allProducts } = trpc.products.listAll.useQuery();
+
+  // 构建分类树
+  const categoryTree = useMemo(() => {
+    if (!categories) return [];
+    
+    const tree: Category[] = [];
+    const categoryMap = new Map<number, Category>();
+    
+    // 先创建所有分类的映射
+    categories.forEach((cat) => {
+      categoryMap.set(cat.id, { ...cat, children: [] });
+    });
+    
+    // 构建树形结构
+    categories.forEach((cat) => {
+      const category = categoryMap.get(cat.id)!;
+      if (cat.parentId === null) {
+        tree.push(category);
+      } else {
+        const parent = categoryMap.get(cat.parentId);
+        if (parent) {
+          parent.children!.push(category);
+        }
+      }
+    });
+    
+    return tree;
+  }, [categories]);
 
   // 过滤产品
   const filteredProducts = allProducts?.filter((product) => {
@@ -38,6 +76,49 @@ export default function ProductShop() {
         ? prev.filter((id) => id !== categoryId)
         : [...prev, categoryId]
     );
+  };
+
+  // 渲染分类树
+  const renderCategoryTree = (cats: Category[], level = 0) => {
+    return cats.map((category) => {
+      const hasChildren = category.children && category.children.length > 0;
+      const isExpanded = expandedCategories.includes(category.id);
+      const isSelected = selectedCategory === category.id;
+      
+      return (
+        <div key={category.id}>
+          <button
+            onClick={() => {
+              setSelectedCategory(category.id);
+              if (hasChildren) {
+                toggleCategory(category.id);
+              }
+            }}
+            className={`w-full text-left px-4 py-2 rounded-lg transition-colors flex items-center justify-between ${
+              isSelected
+                ? "bg-primary text-white"
+                : "hover:bg-gray-100"
+            }`}
+            style={{ paddingLeft: `${(level + 1) * 1}rem` }}
+          >
+            <span className="text-sm">{category.name}</span>
+            {hasChildren && (
+              isExpanded ? (
+                <ChevronDown className="w-4 h-4 flex-shrink-0" />
+              ) : (
+                <ChevronRight className="w-4 h-4 flex-shrink-0" />
+              )
+            )}
+          </button>
+          
+          {hasChildren && isExpanded && (
+            <div className="mt-1">
+              {renderCategoryTree(category.children!, level + 1)}
+            </div>
+          )}
+        </div>
+      );
+    });
   };
 
   return (
@@ -66,7 +147,7 @@ export default function ProductShop() {
               </div>
 
               {/* 分类列表 */}
-              <div className="space-y-2">
+              <div className="space-y-1 max-h-[600px] overflow-y-auto">
                 <button
                   onClick={() => setSelectedCategory(null)}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
@@ -78,28 +159,7 @@ export default function ProductShop() {
                   全部分类
                 </button>
                 
-                {categories?.map((category) => (
-                  <div key={category.id}>
-                    <button
-                      onClick={() => {
-                        setSelectedCategory(category.id);
-                        toggleCategory(category.id);
-                      }}
-                      className={`w-full text-left px-4 py-2 rounded-lg transition-colors flex items-center justify-between ${
-                        selectedCategory === category.id
-                          ? "bg-primary text-white"
-                          : "hover:bg-gray-100"
-                      }`}
-                    >
-                      <span>{category.name}</span>
-                      {expandedCategories.includes(category.id) ? (
-                        <ChevronDown className="w-4 h-4" />
-                      ) : (
-                        <ChevronRight className="w-4 h-4" />
-                      )}
-                    </button>
-                  </div>
-                ))}
+                {renderCategoryTree(categoryTree)}
               </div>
             </div>
           </aside>
@@ -109,7 +169,7 @@ export default function ProductShop() {
             {/* 工具栏 */}
             <div className="bg-white rounded-lg shadow-md p-4 mb-6 flex items-center justify-between">
               <div className="text-gray-600">
-                显示第 1-{sortedProducts?.length || 0} 项结果，共 {sortedProducts?.length || 0} 项
+                显示第 1-{sortedProducts?.length || 0} 项结果,共 {sortedProducts?.length || 0} 项
               </div>
               
               <div className="flex items-center gap-4">
