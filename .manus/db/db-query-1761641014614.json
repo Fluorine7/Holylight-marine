@@ -1,0 +1,124 @@
+{
+  "query": "SELECT id, name, slug, parentId FROM productCategories WHERE parentId IS NULL ORDER BY `order`",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, name, slug, parentId FROM productCategories WHERE parentId IS NULL ORDER BY `order`",
+  "rows": [
+    {
+      "id": "25",
+      "name": "水泵",
+      "slug": "水泵",
+      "parentId": "NULL"
+    },
+    {
+      "id": "50",
+      "name": "通风系统",
+      "slug": "通风系统",
+      "parentId": "NULL"
+    },
+    {
+      "id": "60",
+      "name": "锚机",
+      "slug": "锚机",
+      "parentId": "NULL"
+    },
+    {
+      "id": "65",
+      "name": "舵机",
+      "slug": "舵机",
+      "parentId": "NULL"
+    },
+    {
+      "id": "76",
+      "name": "电池开关",
+      "slug": "电池开关",
+      "parentId": "NULL"
+    },
+    {
+      "id": "78",
+      "name": "雨刮器",
+      "slug": "雨刮器",
+      "parentId": "NULL"
+    },
+    {
+      "id": "88",
+      "name": "喇叭",
+      "slug": "喇叭",
+      "parentId": "NULL"
+    },
+    {
+      "id": "90",
+      "name": "液位计",
+      "slug": "液位计",
+      "parentId": "NULL"
+    },
+    {
+      "id": "94",
+      "name": "尾轴密封",
+      "slug": "尾轴密封",
+      "parentId": "NULL"
+    },
+    {
+      "id": "96",
+      "name": "碰球",
+      "slug": "碰球",
+      "parentId": "NULL"
+    },
+    {
+      "id": "98",
+      "name": "锌块",
+      "slug": "锌块",
+      "parentId": "NULL"
+    },
+    {
+      "id": "104",
+      "name": "磁罗经",
+      "slug": "磁罗经",
+      "parentId": "NULL"
+    },
+    {
+      "id": "106",
+      "name": "马桶",
+      "slug": "马桶",
+      "parentId": "NULL"
+    },
+    {
+      "id": "112",
+      "name": "灭火器",
+      "slug": "灭火器",
+      "parentId": "NULL"
+    },
+    {
+      "id": "114",
+      "name": "岸电插头插座",
+      "slug": "岸电插头插座",
+      "parentId": "NULL"
+    },
+    {
+      "id": "116",
+      "name": "污水处理装置",
+      "slug": "污水处理装置",
+      "parentId": "NULL"
+    },
+    {
+      "id": "122",
+      "name": "冰箱",
+      "slug": "冰箱",
+      "parentId": "NULL"
+    },
+    {
+      "id": "124",
+      "name": "充电器",
+      "slug": "充电器",
+      "parentId": "NULL"
+    },
+    {
+      "id": "126",
+      "name": "逆变器",
+      "slug": "逆变器",
+      "parentId": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\tparentId\n25\t水泵\t水泵\tNULL\n50\t通风系统\t通风系统\tNULL\n60\t锚机\t锚机\tNULL\n65\t舵机\t舵机\tNULL\n76\t电池开关\t电池开关\tNULL\n78\t雨刮器\t雨刮器\tNULL\n88\t喇叭\t喇叭\tNULL\n90\t液位计\t液位计\tNULL\n94\t尾轴密封\t尾轴密封\tNULL\n96\t碰球\t碰球\tNULL\n98\t锌块\t锌块\tNULL\n104\t磁罗经\t磁罗经\tNULL\n106\t马桶\t马桶\tNULL\n112\t灭火器\t灭火器\tNULL\n114\t岸电插头插座\t岸电插头插座\tNULL\n116\t污水处理装置\t污水处理装置\tNULL\n122\t冰箱\t冰箱\tNULL\n124\t充电器\t充电器\tNULL\n126\t逆变器\t逆变器\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 1556
+}
