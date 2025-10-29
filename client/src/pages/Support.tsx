@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { ArrowUp, Phone, Mail, MessageCircle, FileText, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -152,67 +150,6 @@ export default function Support() {
                 </Button>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 在线提交支持请求 */}
-      <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
-        <div className="container">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-center">
-            提交支持请求
-          </h2>
-          <div className="text-lg md:text-xl text-gray-600 mb-12 text-center">
-            Submit Support Request
-          </div>
-          <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    姓名 *
-                  </label>
-                  <Input placeholder="请输入您的姓名" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    联系电话 *
-                  </label>
-                  <Input placeholder="请输入您的联系电话" />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  电子邮箱 *
-                </label>
-                <Input type="email" placeholder="请输入您的电子邮箱" />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  问题类型 *
-                </label>
-                <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                  <option>产品咨询</option>
-                  <option>技术支持</option>
-                  <option>售后服务</option>
-                  <option>其他问题</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  问题描述 *
-                </label>
-                <Textarea
-                  placeholder="请详细描述您遇到的问题..."
-                  rows={6}
-                />
-              </div>
-              <div className="flex justify-center">
-                <Button size="lg" className="px-12">
-                  提交请求
-                </Button>
-              </div>
-            </form>
           </div>
         </div>
       </section>
