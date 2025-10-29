@@ -427,11 +427,13 @@ export async function createProduct(
   // pass arrays or objects for `images`, `downloads`, or `specifications`,
   // MySQL will reject the query.  We defensively convert these fields here.
   const values: any = { ...product };
+  console.log('[createProduct] Input product:', JSON.stringify(product, null, 2));
   values.slug = ensureSlug({
     slug: product.slug ?? undefined,
     fallback: product.name ?? product.model ?? product.brand,
     prefix: "product",
   });
+  console.log('[createProduct] Generated slug:', values.slug);
   if (values.images !== undefined && typeof values.images !== 'string') {
     try {
       values.images = JSON.stringify(values.images);
@@ -454,6 +456,7 @@ export async function createProduct(
     }
   }
 
+  console.log('[createProduct] Final values before insert:', JSON.stringify(values, null, 2));
   const result = await db.insert(products).values(values);
   const id = Number(result[0].insertId);
   const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
