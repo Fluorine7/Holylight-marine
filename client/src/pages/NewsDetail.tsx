@@ -15,7 +15,7 @@ export default function NewsDetail() {
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
             <p className="text-gray-600">加载中...</p>
@@ -30,7 +30,7 @@ export default function NewsDetail() {
     return (
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">新闻不存在</h2>
             <Link href="/news">
@@ -50,7 +50,7 @@ export default function NewsDetail() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
-      <main className="flex-1 py-12 bg-gray-50">
+      <main className="flex-1 pt-24 pb-12 bg-gray-50">
         <div className="container max-w-4xl">
           {/* 返回按钮 */}
           <Link href="/news">
