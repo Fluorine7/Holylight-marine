@@ -1,0 +1,34 @@
+{
+  "query": "SHOW TABLES",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SHOW TABLES",
+  "rows": [
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "__drizzle_migrations"
+    },
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "banners"
+    },
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "companyInfo"
+    },
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "news"
+    },
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "partners"
+    },
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "productCategories"
+    },
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "products"
+    },
+    {
+      "Tables_in_nb9WvzpHUTfcigQwoxqRAZ": "users"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_nb9WvzpHUTfcigQwoxqRAZ\n__drizzle_migrations\nbanners\ncompanyInfo\nnews\npartners\nproductCategories\nproducts\nusers\n",
+  "stderr": "",
+  "execution_time_ms": 1669
+}

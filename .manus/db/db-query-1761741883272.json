@@ -1,0 +1,130 @@
+{
+  "query": "SELECT * FROM productCategories LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT * FROM productCategories LIMIT 10",
+  "rows": [
+    {
+      "id": "25",
+      "name": "水泵",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "1",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:49",
+      "updatedAt": "2025-10-28 08:42:49",
+      "slug": "水泵",
+      "parentId": "NULL"
+    },
+    {
+      "id": "26",
+      "name": "Rule",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "1",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:49",
+      "updatedAt": "2025-10-28 08:42:49",
+      "slug": "水泵-1-rule",
+      "parentId": "25"
+    },
+    {
+      "id": "27",
+      "name": "舱底泵",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "1",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:49",
+      "updatedAt": "2025-10-28 08:42:49",
+      "slug": "水泵-2-rule-舱底泵",
+      "parentId": "26"
+    },
+    {
+      "id": "28",
+      "name": "淋浴排水系统",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "2",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:50",
+      "updatedAt": "2025-10-28 08:42:50",
+      "slug": "水泵-3-rule-淋浴排水系统",
+      "parentId": "26"
+    },
+    {
+      "id": "29",
+      "name": "Jabsco",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "2",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:50",
+      "updatedAt": "2025-10-28 08:42:50",
+      "slug": "水泵-4-jabsco",
+      "parentId": "25"
+    },
+    {
+      "id": "30",
+      "name": "排污泵",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "1",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:50",
+      "updatedAt": "2025-10-28 08:42:50",
+      "slug": "水泵-5-jabsco-排污泵",
+      "parentId": "29"
+    },
+    {
+      "id": "31",
+      "name": "压力供水系统",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "2",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:50",
+      "updatedAt": "2025-10-28 08:42:50",
+      "slug": "水泵-6-jabsco-压力供水系统",
+      "parentId": "29"
+    },
+    {
+      "id": "32",
+      "name": "冲洗泵",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "3",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:50",
+      "updatedAt": "2025-10-28 08:42:50",
+      "slug": "水泵-7-jabsco-冲洗泵",
+      "parentId": "29"
+    },
+    {
+      "id": "33",
+      "name": "淡水泵",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "4",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:51",
+      "updatedAt": "2025-10-28 08:42:51",
+      "slug": "水泵-8-jabsco-淡水泵",
+      "parentId": "29"
+    },
+    {
+      "id": "34",
+      "name": "Flojet",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "order": "3",
+      "isActive": "1",
+      "createdAt": "2025-10-28 08:42:51",
+      "updatedAt": "2025-10-28 08:42:51",
+      "slug": "水泵-9-flojet",
+      "parentId": "25"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tdescription\timageUrl\torder\tisActive\tcreatedAt\tupdatedAt\tslug\tparentId\n25\t水泵\tNULL\tNULL\t1\t1\t2025-10-28 08:42:49\t2025-10-28 08:42:49\t水泵\tNULL\n26\tRule\tNULL\tNULL\t1\t1\t2025-10-28 08:42:49\t2025-10-28 08:42:49\t水泵-1-rule\t25\n27\t舱底泵\tNULL\tNULL\t1\t1\t2025-10-28 08:42:49\t2025-10-28 08:42:49\t水泵-2-rule-舱底泵\t26\n28\t淋浴排水系统\tNULL\tNULL\t2\t1\t2025-10-28 08:42:50\t2025-10-28 08:42:50\t水泵-3-rule-淋浴排水系统\t26\n29\tJabsco\tNULL\tNULL\t2\t1\t2025-10-28 08:42:50\t2025-10-28 08:42:50\t水泵-4-jabsco\t25\n30\t排污泵\tNULL\tNULL\t1\t1\t2025-10-28 08:42:50\t2025-10-28 08:42:50\t水泵-5-jabsco-排污泵\t29\n31\t压力供水系统\tNULL\tNULL\t2\t1\t2025-10-28 08:42:50\t2025-10-28 08:42:50\t水泵-6-jabsco-压力供水系统\t29\n32\t冲洗泵\tNULL\tNULL\t3\t1\t2025-10-28 08:42:50\t2025-10-28 08:42:50\t水泵-7-jabsco-冲洗泵\t29\n33\t淡水泵\tNULL\tNULL\t4\t1\t2025-10-28 08:42:51\t2025-10-28 08:42:51\t水泵-8-jabsco-淡水泵\t29\n34\tFlojet\tNULL\tNULL\t3\t1\t2025-10-28 08:42:51\t2025-10-28 08:42:51\t水泵-9-flojet\t25\n",
+  "stderr": "",
+  "execution_time_ms": 1517
+}

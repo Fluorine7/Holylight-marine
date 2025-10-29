@@ -199,7 +199,10 @@ export const appRouter = router({
         order: z.number().default(0),
         isPublished: z.boolean().optional(),
       }))
-      .mutation(({ input }) => db.createProduct(input)),
+      .mutation(({ input }) => {
+        console.log('[products.create] Received input:', JSON.stringify(input, null, 2));
+        return db.createProduct(input);
+      }),
     update: adminProcedure
       .input(z.object({
         id: z.number(),

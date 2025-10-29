@@ -422,39 +422,32 @@ export async function createProduct(
 ): Promise<Product> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  // Ensure fields that should be stored as JSON strings are properly serialized.
-  // Drizzle will blindly insert whatever is provided, so if callers accidentally
-  // pass arrays or objects for `images`, `downloads`, or `specifications`,
-  // MySQL will reject the query.  We defensively convert these fields here.
-  const values: any = { ...product };
+  
   console.log('[createProduct] Input product:', JSON.stringify(product, null, 2));
-  values.slug = ensureSlug({
+  
+  const slug = ensureSlug({
     slug: product.slug ?? undefined,
     fallback: product.name ?? product.model ?? product.brand,
     prefix: "product",
   });
-  console.log('[createProduct] Generated slug:', values.slug);
-  if (values.images !== undefined && typeof values.images !== 'string') {
-    try {
-      values.images = JSON.stringify(values.images);
-    } catch {
-      values.images = '[]';
-    }
-  }
-  if (values.downloads !== undefined && typeof values.downloads !== 'string') {
-    try {
-      values.downloads = JSON.stringify(values.downloads);
-    } catch {
-      values.downloads = '[]';
-    }
-  }
-  if (values.specifications !== undefined && typeof values.specifications !== 'string') {
-    try {
-      values.specifications = JSON.stringify(values.specifications);
-    } catch {
-      values.specifications = undefined;
-    }
-  }
+  
+  console.log('[createProduct] Generated slug:', slug);
+  
+  // Explicitly map fields to ensure correct types
+  const values: InsertProduct = {
+    categoryId: product.categoryId,
+    name: product.name,
+    slug: slug,
+    model: product.model ?? undefined,
+    brand: product.brand ?? undefined,
+    description: product.description ?? undefined,
+    specifications: product.specifications ?? undefined,
+    price: product.price ?? undefined,
+    images: typeof product.images === 'string' ? product.images : (product.images ? JSON.stringify(product.images) : undefined),
+    downloads: typeof product.downloads === 'string' ? product.downloads : (product.downloads ? JSON.stringify(product.downloads) : undefined),
+    order: product.order ?? 0,
+    isPublished: product.isPublished ?? true,
+  };
 
   console.log('[createProduct] Final values before insert:', JSON.stringify(values, null, 2));
   const result = await db.insert(products).values(values);
