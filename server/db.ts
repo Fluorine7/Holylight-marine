@@ -1,10 +1,10 @@
 import { eq, isNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { 
-  InsertUser, 
-  users, 
-  banners, 
-  Banner, 
+import {
+  InsertUser,
+  users,
+  banners,
+  Banner,
   InsertBanner,
   productCategories,
   ProductCategory,
@@ -23,6 +23,7 @@ import {
   InsertCompanyInfo
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import { ensureSlug } from "./_core/slug";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -290,11 +291,22 @@ export async function getNewsById(id: number): Promise<News | null> {
   return result[0] || null;
 }
 
-export async function createNews(newsItem: InsertNews): Promise<News> {
+export async function createNews(
+  newsItem: Omit<InsertNews, "slug"> & { slug?: string | null }
+): Promise<News> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  
-  const result = await db.insert(news).values(newsItem);
+
+  const values: InsertNews = {
+    ...newsItem,
+    slug: ensureSlug({
+      slug: newsItem.slug ?? undefined,
+      fallback: newsItem.title,
+      prefix: "news",
+    }),
+  };
+
+  const result = await db.insert(news).values(values);
   const id = Number(result[0].insertId);
   const created = await db.select().from(news).where(eq(news.id, id)).limit(1);
   return created[0];
@@ -303,8 +315,17 @@ export async function createNews(newsItem: InsertNews): Promise<News> {
 export async function updateNews(id: number, data: Partial<InsertNews>): Promise<void> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  
-  await db.update(news).set(data).where(eq(news.id, id));
+
+  const updateData: Partial<InsertNews> = { ...data };
+  if (updateData.slug !== undefined) {
+    updateData.slug = ensureSlug({
+      slug: updateData.slug,
+      fallback: updateData.title,
+      prefix: "news",
+    });
+  }
+
+  await db.update(news).set(updateData).where(eq(news.id, id));
 }
 
 export async function deleteNews(id: number): Promise<void> {
@@ -388,7 +409,9 @@ export async function getProductById(id: number): Promise<Product | undefined> {
   return result.length > 0 ? result[0] : undefined;
 }
 
-export async function createProduct(product: InsertProduct): Promise<Product> {
+export async function createProduct(
+  product: Omit<InsertProduct, "slug"> & { slug?: string | null }
+): Promise<Product> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   // Ensure fields that should be stored as JSON strings are properly serialized.
@@ -396,6 +419,11 @@ export async function createProduct(product: InsertProduct): Promise<Product> {
   // pass arrays or objects for `images`, `downloads`, or `specifications`,
   // MySQL will reject the query.  We defensively convert these fields here.
   const values: any = { ...product };
+  values.slug = ensureSlug({
+    slug: product.slug ?? undefined,
+    fallback: product.name ?? product.model ?? product.brand,
+    prefix: "product",
+  });
   if (values.images !== undefined && typeof values.images !== 'string') {
     try {
       values.images = JSON.stringify(values.images);
@@ -430,6 +458,13 @@ export async function updateProduct(id: number, data: Partial<InsertProduct>): P
   // Normalize JSON fields on update.  Users may provide arrays or objects
   // instead of pre-stringified JSON.  Convert them here to avoid driver errors.
   const updateData: any = { ...data };
+  if (updateData.slug !== undefined) {
+    updateData.slug = ensureSlug({
+      slug: updateData.slug,
+      fallback: updateData.name,
+      prefix: "product",
+    });
+  }
   if (updateData.images !== undefined && typeof updateData.images !== 'string') {
     try {
       updateData.images = JSON.stringify(updateData.images);

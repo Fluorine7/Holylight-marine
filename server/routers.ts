@@ -138,7 +138,7 @@ export const appRouter = router({
     create: adminProcedure
       .input(z.object({
         title: z.string(),
-        slug: z.string(),
+        slug: z.string().optional(),
         summary: z.string().optional(),
         content: z.string().optional(),
         coverImage: z.string().optional(),
@@ -187,7 +187,7 @@ export const appRouter = router({
         model: z.string().optional(),
         brand: z.string().optional(),
         price: z.string().optional(),
-        slug: z.string(),
+        slug: z.string().optional(),
         description: z.string().optional(),
         specifications: z.string().optional(),
         images: z.string().optional(),
