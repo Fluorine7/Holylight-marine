@@ -144,6 +144,7 @@ export const appRouter = router({
         coverImage: z.string().optional(),
         category: z.string().optional(),
         publishDate: z.date().optional(),
+        isPublished: z.boolean().optional(),
       }))
       .mutation(({ input }) => db.createNews(input)),
     update: adminProcedure
@@ -193,6 +194,7 @@ export const appRouter = router({
         images: z.string().optional(),
         downloads: z.string().optional(),
         order: z.number().default(0),
+        isPublished: z.boolean().optional(),
       }))
       .mutation(({ input }) => db.createProduct(input)),
     update: adminProcedure
