@@ -391,8 +391,34 @@ export async function getProductById(id: number): Promise<Product | undefined> {
 export async function createProduct(product: InsertProduct): Promise<Product> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  
-  const result = await db.insert(products).values(product);
+  // Ensure fields that should be stored as JSON strings are properly serialized.
+  // Drizzle will blindly insert whatever is provided, so if callers accidentally
+  // pass arrays or objects for `images`, `downloads`, or `specifications`,
+  // MySQL will reject the query.  We defensively convert these fields here.
+  const values: any = { ...product };
+  if (values.images !== undefined && typeof values.images !== 'string') {
+    try {
+      values.images = JSON.stringify(values.images);
+    } catch {
+      values.images = '[]';
+    }
+  }
+  if (values.downloads !== undefined && typeof values.downloads !== 'string') {
+    try {
+      values.downloads = JSON.stringify(values.downloads);
+    } catch {
+      values.downloads = '[]';
+    }
+  }
+  if (values.specifications !== undefined && typeof values.specifications !== 'string') {
+    try {
+      values.specifications = JSON.stringify(values.specifications);
+    } catch {
+      values.specifications = undefined;
+    }
+  }
+
+  const result = await db.insert(products).values(values);
   const id = Number(result[0].insertId);
   const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
   return created[0];
@@ -401,8 +427,32 @@ export async function createProduct(product: InsertProduct): Promise<Product> {
 export async function updateProduct(id: number, data: Partial<InsertProduct>): Promise<void> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  
-  await db.update(products).set(data).where(eq(products.id, id));
+  // Normalize JSON fields on update.  Users may provide arrays or objects
+  // instead of pre-stringified JSON.  Convert them here to avoid driver errors.
+  const updateData: any = { ...data };
+  if (updateData.images !== undefined && typeof updateData.images !== 'string') {
+    try {
+      updateData.images = JSON.stringify(updateData.images);
+    } catch {
+      updateData.images = '[]';
+    }
+  }
+  if (updateData.downloads !== undefined && typeof updateData.downloads !== 'string') {
+    try {
+      updateData.downloads = JSON.stringify(updateData.downloads);
+    } catch {
+      updateData.downloads = '[]';
+    }
+  }
+  if (updateData.specifications !== undefined && typeof updateData.specifications !== 'string') {
+    try {
+      updateData.specifications = JSON.stringify(updateData.specifications);
+    } catch {
+      updateData.specifications = undefined;
+    }
+  }
+
+  await db.update(products).set(updateData).where(eq(products.id, id));
 }
 
 export async function deleteProduct(id: number): Promise<void> {
