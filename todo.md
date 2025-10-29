@@ -73,3 +73,12 @@
 - [x] 修复产品创建SQL错误(更新API schema添加brand/price/downloads字段)
 - [x] 修复shadcn Button组件点击无响应问题(替换为原生button元素)
 
+
+
+
+## 补丁应用 (2025-10-29)
+- [x] 应用local-storage-upload.patch补丁
+  - 添加本地文件存储fallback机制
+  - 当S3配置缺失时自动保存到服务器uploads目录
+  - 添加/uploads静态文件服务
+

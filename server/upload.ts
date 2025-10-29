@@ -2,6 +2,8 @@ import express from "express";
 import multer from "multer";
 import { storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
+import fs from 'fs/promises';
+import path from 'path';
 
 const router = express.Router();
 
@@ -36,16 +38,31 @@ router.post("/api/upload", upload.single("file"), async (req, res) => {
     const filename = `${timestamp}-${file.originalname}`;
     const relKey = `uploads/${filename}`;
 
-    // 上传到S3
-    const result = await storagePut(relKey, file.buffer, file.mimetype);
-
-    res.json({
-      url: result.url,
-      key: result.key,
-      filename: file.originalname,
-      size: file.size,
-      mimetype: file.mimetype,
-    });
+    // 尝试上传到远程存储，如果配置缺失则保存到本地 uploads 目录
+    try {
+      const result = await storagePut(relKey, file.buffer, file.mimetype);
+      return res.json({
+        url: result.url,
+        key: result.key,
+        filename: file.originalname,
+        size: file.size,
+        mimetype: file.mimetype,
+      });
+    } catch (e) {
+      // fallback: 保存到服务器本地
+      const uploadDir = path.resolve(process.cwd(), 'uploads');
+      await fs.mkdir(uploadDir, { recursive: true });
+      const filePath = path.join(uploadDir, filename);
+      await fs.writeFile(filePath, file.buffer);
+      const url = `/uploads/${filename}`;
+      return res.json({
+        url,
+        key: url,
+        filename: file.originalname,
+        size: file.size,
+        mimetype: file.mimetype,
+      });
+    }
   } catch (error) {
     console.error("文件上传失败:", error);
     res.status(500).json({ error: "文件上传失败" });

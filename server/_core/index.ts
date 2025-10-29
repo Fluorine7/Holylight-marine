@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
+import path from "path";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
@@ -38,6 +39,12 @@ async function startServer() {
   registerOAuthRoutes(app);
   // File upload API
   app.use(uploadRouter);
+
+  // Serve locally uploaded files under /uploads
+  {
+    const uploadsPath = path.resolve(process.cwd(), 'uploads');
+    app.use('/uploads', express.static(uploadsPath));
+  }
   // tRPC API
   app.use(
     "/api/trpc",
