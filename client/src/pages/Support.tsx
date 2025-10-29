@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUp, Phone, Mail, MessageCircle, FileText, Wrench } from "lucide-react";
+import { ArrowUp, Phone, Mail, FileText, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -33,12 +33,6 @@ export default function Support() {
       title: "邮件支持",
       description: "通过邮件获取技术支持和解决方案",
       contact: "support@holylight.com",
-    },
-    {
-      icon: <MessageCircle className="w-8 h-8" />,
-      title: "在线咨询",
-      description: "在线客服实时解答您的问题",
-      contact: "在线客服",
     },
     {
       icon: <Wrench className="w-8 h-8" />,
@@ -89,7 +83,7 @@ export default function Support() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {supportServices.map((service, index) => (
               <div
                 key={index}
