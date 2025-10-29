@@ -1,0 +1,34 @@
+{
+  "query": "SELECT id, title, slug, coverImage, publishDate, isPublished FROM news ORDER BY publishDate DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, title, slug, coverImage, publishDate, isPublished FROM news ORDER BY publishDate DESC",
+  "rows": [
+    {
+      "id": "3",
+      "title": "2025年第26届北京国际房车露营展览会",
+      "slug": "beijing-rv-expo-2025",
+      "coverImage": "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=300&fit=crop",
+      "publishDate": "2025-04-10 09:00:00",
+      "isPublished": "1"
+    },
+    {
+      "id": "2",
+      "title": "2025 中国（上海）第二十八届国际船艇及其技术设备展览会",
+      "slug": "shanghai-boat-show-2025",
+      "coverImage": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
+      "publishDate": "2025-03-20 09:00:00",
+      "isPublished": "1"
+    },
+    {
+      "id": "1",
+      "title": "好利来与GUIDI达成战略合作",
+      "slug": "guidi-partnership",
+      "coverImage": "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop",
+      "publishDate": "2025-01-15 10:00:00",
+      "isPublished": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\tcoverImage\tpublishDate\tisPublished\n3\t2025年第26届北京国际房车露营展览会\tbeijing-rv-expo-2025\thttps://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=300&fit=crop\t2025-04-10 09:00:00\t1\n2\t2025 中国（上海）第二十八届国际船艇及其技术设备展览会\tshanghai-boat-show-2025\thttps://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop\t2025-03-20 09:00:00\t1\n1\t好利来与GUIDI达成战略合作\tguidi-partnership\thttps://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop\t2025-01-15 10:00:00\t1\n",
+  "stderr": "",
+  "execution_time_ms": 2420
+}

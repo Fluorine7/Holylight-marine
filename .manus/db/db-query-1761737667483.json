@@ -1,0 +1,55 @@
+{
+  "query": "SELECT * FROM news ORDER BY id DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT * FROM news ORDER BY id DESC",
+  "rows": [
+    {
+      "id": "3",
+      "title": "2025年第26届北京国际房车露营展览会",
+      "content": "<h2>展会信息</h2><p>展会时间：2025年4月10-12日</p><p>展会地点：北京中国国际展览中心</p><h2>展品介绍</h2><p>本次展会我们将展示房车专用水泵、通风系统、电池管理系统等配套产品。</p>",
+      "imageUrl": "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=300&fit=crop",
+      "publishDate": "2025-04-10 09:00:00",
+      "isActive": "1",
+      "createdAt": "2025-10-29 10:14:35",
+      "updatedAt": "2025-10-29 10:14:35",
+      "slug": "beijing-rv-expo-2025",
+      "summary": "好利来将携房车配套系统产品参加2025年4月在北京举办的第26届国际房车露营展览会。",
+      "coverImage": "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=300&fit=crop",
+      "category": "展会活动",
+      "isPublished": "1"
+    },
+    {
+      "id": "2",
+      "title": "2025 中国（上海）第二十八届国际船艇及其技术设备展览会",
+      "content": "<h2>展会信息</h2><p>展会时间：2025年3月20-22日</p><p>展会地点：上海新国际博览中心</p><h2>展位信息</h2><p>好利来展位号：W3-A001</p><p>欢迎各界朋友莅临参观指导！</p>",
+      "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
+      "publishDate": "2025-03-20 09:00:00",
+      "isActive": "1",
+      "createdAt": "2025-10-29 10:14:35",
+      "updatedAt": "2025-10-29 10:14:35",
+      "slug": "shanghai-boat-show-2025",
+      "summary": "好利来将参加2025年3月在上海举办的第二十八届国际船艇及其技术设备展览会，展示最新的船舶配件产品和解决方案。",
+      "coverImage": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
+      "category": "展会活动",
+      "isPublished": "1"
+    },
+    {
+      "id": "1",
+      "title": "好利来与GUIDI达成战略合作",
+      "content": "<h2>战略合作签约仪式</h2><p>2025年1月15日，深圳市好利来贸易有限公司与意大利知名船舶配件品牌GUIDI在深圳总部举行了战略合作签约仪式。双方将在船舶配件、游艇设备等领域展开全面合作。</p><h2>合作内容</h2><p>此次合作涵盖以下几个方面：</p><ul><li>GUIDI品牌产品在中国市场的独家代理</li><li>共同研发适合亚洲市场的新产品</li><li>技术交流与人员培训</li><li>售后服务体系建设</li></ul><h2>未来展望</h2><p>好利来总经理表示，与GUIDI的合作将进一步提升公司在船舶配件领域的竞争力，为客户提供更优质的产品和服务。</p>",
+      "imageUrl": "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop",
+      "publishDate": "2025-01-15 10:00:00",
+      "isActive": "1",
+      "createdAt": "2025-10-29 10:14:35",
+      "updatedAt": "2025-10-29 10:14:35",
+      "slug": "guidi-partnership",
+      "summary": "深圳市好利来贸易有限公司与意大利知名品牌GUIDI正式达成战略合作协议，将共同推进船舶配件领域的创新发展。",
+      "coverImage": "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop",
+      "category": "公司新闻",
+      "isPublished": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcontent\timageUrl\tpublishDate\tisActive\tcreatedAt\tupdatedAt\tslug\tsummary\tcoverImage\tcategory\tisPublished\n3\t2025年第26届北京国际房车露营展览会\t<h2>展会信息</h2><p>展会时间：2025年4月10-12日</p><p>展会地点：北京中国国际展览中心</p><h2>展品介绍</h2><p>本次展会我们将展示房车专用水泵、通风系统、电池管理系统等配套产品。</p>\thttps://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=300&fit=crop\t2025-04-10 09:00:00\t1\t2025-10-29 10:14:35\t2025-10-29 10:14:35\tbeijing-rv-expo-2025\t好利来将携房车配套系统产品参加2025年4月在北京举办的第26届国际房车露营展览会。\thttps://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=300&fit=crop\t展会活动\t1\n2\t2025 中国（上海）第二十八届国际船艇及其技术设备展览会\t<h2>展会信息</h2><p>展会时间：2025年3月20-22日</p><p>展会地点：上海新国际博览中心</p><h2>展位信息</h2><p>好利来展位号：W3-A001</p><p>欢迎各界朋友莅临参观指导！</p>\thttps://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop\t2025-03-20 09:00:00\t1\t2025-10-29 10:14:35\t2025-10-29 10:14:35\tshanghai-boat-show-2025\t好利来将参加2025年3月在上海举办的第二十八届国际船艇及其技术设备展览会，展示最新的船舶配件产品和解决方案。\thttps://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop\t展会活动\t1\n1\t好利来与GUIDI达成战略合作\t<h2>战略合作签约仪式</h2><p>2025年1月15日，深圳市好利来贸易有限公司与意大利知名船舶配件品牌GUIDI在深圳总部举行了战略合作签约仪式。双方将在船舶配件、游艇设备等领域展开全面合作。</p><h2>合作内容</h2><p>此次合作涵盖以下几个方面：</p><ul><li>GUIDI品牌产品在中国市场的独家代理</li><li>共同研发适合亚洲市场的新产品</li><li>技术交流与人员培训</li><li>售后服务体系建设</li></ul><h2>未来展望</h2><p>好利来总经理表示，与GUIDI的合作将进一步提升公司在船舶配件领域的竞争力，为客户提供更优质的产品和服务。</p>\thttps://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop\t2025-01-15 10:00:00\t1\t2025-10-29 10:14:35\t2025-10-29 10:14:35\tguidi-partnership\t深圳市好利来贸易有限公司与意大利知名品牌GUIDI正式达成战略合作协议，将共同推进船舶配件领域的创新发展。\thttps://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop\t公司新闻\t1\n",
+  "stderr": "",
+  "execution_time_ms": 1672
+}
