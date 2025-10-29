@@ -434,20 +434,27 @@ export async function createProduct(
   console.log('[createProduct] Generated slug:', slug);
   
   // Explicitly map fields to ensure correct types
-  const values: InsertProduct = {
+  // Do not include undefined fields - only include fields with actual values
+  const values: any = {
     categoryId: product.categoryId,
     name: product.name,
     slug: slug,
-    model: product.model ?? undefined,
-    brand: product.brand ?? undefined,
-    description: product.description ?? undefined,
-    specifications: product.specifications ?? undefined,
-    price: product.price ?? undefined,
-    images: typeof product.images === 'string' ? product.images : (product.images ? JSON.stringify(product.images) : undefined),
-    downloads: typeof product.downloads === 'string' ? product.downloads : (product.downloads ? JSON.stringify(product.downloads) : undefined),
     order: product.order ?? 0,
     isPublished: product.isPublished ?? true,
   };
+  
+  // Only add optional fields if they have values
+  if (product.model) values.model = product.model;
+  if (product.brand) values.brand = product.brand;
+  if (product.description) values.description = product.description;
+  if (product.specifications) values.specifications = product.specifications;
+  if (product.price) values.price = product.price;
+  if (product.images) {
+    values.images = typeof product.images === 'string' ? product.images : JSON.stringify(product.images);
+  }
+  if (product.downloads) {
+    values.downloads = typeof product.downloads === 'string' ? product.downloads : JSON.stringify(product.downloads);
+  }
 
   console.log('[createProduct] Final values before insert:', JSON.stringify(values, null, 2));
   const result = await db.insert(products).values(values);
