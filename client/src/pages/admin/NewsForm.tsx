@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "wouter";
-import { ArrowLeft, Upload } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import AdminLayout from "../../components/AdminLayout";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import FileUpload from "../../components/FileUpload";
+import RichTextEditor from "../../components/RichTextEditor";
 import { trpc } from "../../lib/trpc";
 import { Button } from "../../components/ui/button";
 import { toast } from "sonner";
@@ -113,6 +115,12 @@ function NewsFormContent() {
     }
   };
 
+  const handleCoverImageUpload = (urls: string[]) => {
+    if (urls.length > 0) {
+      setFormData({ ...formData, coverImage: urls[0] });
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -179,16 +187,17 @@ function NewsFormContent() {
               />
             </div>
 
-            <div>
+            <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                封面图片URL
+                封面图片
               </label>
-              <input
-                type="url"
-                value={formData.coverImage}
-                onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                placeholder="请输入封面图片URL"
+              <FileUpload
+                accept="image/*"
+                multiple={false}
+                maxSize={10}
+                label="上传封面图片"
+                existingFiles={formData.coverImage ? [formData.coverImage] : []}
+                onUploadComplete={handleCoverImageUpload}
               />
             </div>
 
@@ -209,19 +218,6 @@ function NewsFormContent() {
             </div>
           </div>
 
-          {formData.coverImage && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                封面预览
-              </label>
-              <img
-                src={formData.coverImage}
-                alt="封面预览"
-                className="w-full max-w-md h-48 object-cover rounded-lg"
-              />
-            </div>
-          )}
-
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               新闻摘要
@@ -239,16 +235,11 @@ function NewsFormContent() {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               新闻正文
             </label>
-            <textarea
+            <RichTextEditor
               value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              rows={15}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-mono text-sm"
-              placeholder="请输入新闻正文内容（支持HTML）"
+              onChange={(content) => setFormData({ ...formData, content })}
+              placeholder="请输入新闻正文内容..."
             />
-            <p className="text-xs text-gray-500 mt-1">
-              提示：可以使用HTML标签来格式化内容
-            </p>
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t">

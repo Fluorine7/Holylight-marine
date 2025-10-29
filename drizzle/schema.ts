@@ -86,6 +86,7 @@ export const products = mysqlTable("products", {
   specifications: text("specifications"), // 产品参数（JSON格式）
   price: varchar("price", { length: 100 }), // 价格
   images: text("images"), // 产品图片URL数组（JSON格式）
+  downloads: text("downloads"), // 资料下载文件数组（JSON格式: [{name, url}]）
   order: int("order").default(0).notNull(),
   isPublished: boolean("isPublished").default(true).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),

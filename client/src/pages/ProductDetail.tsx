@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRoute } from "wouter";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { trpc } from "../lib/trpc";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -18,6 +18,7 @@ export default function ProductDetail() {
   const { data: relatedProducts } = trpc.products.listAll.useQuery();
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState<"params" | "downloads">("params");
 
   if (isLoading) {
     return (
@@ -47,9 +48,8 @@ export default function ProductDetail() {
   }
 
   const images = product.images ? JSON.parse(product.images) : [];
-  const specifications = product.specifications
-    ? JSON.parse(product.specifications)
-    : {};
+  const specifications = product.specifications || "";
+  const downloads = product.downloads ? JSON.parse(product.downloads) : [];
 
   const related = relatedProducts
     ?.filter(
@@ -162,6 +162,13 @@ export default function ProductDetail() {
                 </div>
               )}
 
+              {product.brand && (
+                <div className="mb-4">
+                  <span className="text-gray-600">品牌：</span>
+                  <span className="font-medium">{product.brand}</span>
+                </div>
+              )}
+
               {category && (
                 <div className="mb-4">
                   <span className="text-gray-600">分类：</span>
@@ -183,39 +190,97 @@ export default function ProductDetail() {
                 </div>
               )}
 
-              {/* 产品规格表 */}
-              {Object.keys(specifications).length > 0 && (
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3">产品规格</h3>
-                  <div className="bg-gray-50 rounded-lg overflow-hidden">
-                    <table className="w-full">
-                      <tbody>
-                        {Object.entries(specifications).map(([key, value], index) => (
-                          <tr
-                            key={key}
-                            className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
-                          >
-                            <td className="px-4 py-3 font-medium text-gray-700 w-1/3">
-                              {key}
-                            </td>
-                            <td className="px-4 py-3 text-gray-600">{String(value)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-
               {/* 联系按钮 */}
               <div className="flex gap-4">
                 <Link
                   href="/contact"
                   className="flex-1 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors text-center font-medium"
                 >
-                  联系我们
+                  在线查询
                 </Link>
               </div>
+            </div>
+          </div>
+
+          {/* 选项卡 */}
+          <div className="mt-8 border-t pt-6">
+            <div className="flex gap-4 mb-6 border-b">
+              <button
+                onClick={() => setActiveTab("params")}
+                className={`px-6 py-3 font-medium transition-colors relative ${
+                  activeTab === "params"
+                    ? "text-primary"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                产品参数
+                {activeTab === "params" && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                )}
+              </button>
+              <button
+                onClick={() => setActiveTab("downloads")}
+                className={`px-6 py-3 font-medium transition-colors relative ${
+                  activeTab === "downloads"
+                    ? "text-primary"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                资料下载
+                {activeTab === "downloads" && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                )}
+              </button>
+            </div>
+
+            {/* 选项卡内容 */}
+            <div className="min-h-[200px]">
+              {activeTab === "params" && (
+                <div>
+                  {specifications ? (
+                    <div className="prose max-w-none">
+                      <pre className="whitespace-pre-wrap text-gray-700 font-sans">
+                        {specifications}
+                      </pre>
+                    </div>
+                  ) : (
+                    <p className="text-gray-500 text-center py-8">暂无产品参数</p>
+                  )}
+                </div>
+              )}
+
+              {activeTab === "downloads" && (
+                <div>
+                  {downloads.length > 0 ? (
+                    <div className="grid gap-4">
+                      {downloads.map((download: { name: string; url: string }, index: number) => (
+                        <a
+                          key={index}
+                          href={download.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                              <Download className="w-5 h-5 text-primary" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900 group-hover:text-primary transition-colors">
+                                {download.name}
+                              </p>
+                              <p className="text-sm text-gray-500">点击下载</p>
+                            </div>
+                          </div>
+                          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-500 text-center py-8">暂无下载资料</p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -250,7 +315,7 @@ export default function ProductDetail() {
                         </h3>
                         {relatedProduct.model && (
                           <p className="text-sm text-gray-600 mt-1">
-                            {relatedProduct.model}
+                            型号：{relatedProduct.model}
                           </p>
                         )}
                       </div>

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "wouter";
-import { ArrowLeft, Upload, X } from "lucide-react";
+import { ArrowLeft, Plus, X } from "lucide-react";
 import AdminLayout from "../../components/AdminLayout";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import FileUpload from "../../components/FileUpload";
 import { trpc } from "../../lib/trpc";
 import { Button } from "../../components/ui/button";
 import { toast } from "sonner";
@@ -30,10 +31,11 @@ function ProductFormContent() {
     specifications: "",
     price: "",
     images: [] as string[],
+    downloads: [] as { name: string; url: string }[],
     isPublished: true,
   });
 
-  const [imageInput, setImageInput] = useState("");
+  const [downloadName, setDownloadName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data: categories } = trpc.productCategories.listAll.useQuery();
@@ -76,6 +78,7 @@ function ProductFormContent() {
         specifications: product.specifications || "",
         price: product.price || "",
         images: product.images ? JSON.parse(product.images) : [],
+        downloads: product.downloads ? JSON.parse(product.downloads) : [],
         isPublished: product.isPublished,
       });
     }
@@ -112,6 +115,7 @@ function ProductFormContent() {
         specifications: formData.specifications || undefined,
         price: formData.price || undefined,
         images: JSON.stringify(formData.images),
+        downloads: JSON.stringify(formData.downloads),
         isPublished: formData.isPublished,
       };
 
@@ -127,20 +131,24 @@ function ProductFormContent() {
     }
   };
 
-  const handleAddImage = () => {
-    if (imageInput.trim()) {
+  const handleAddDownload = (urls: string[]) => {
+    if (urls.length > 0 && downloadName.trim()) {
+      const newDownloads = urls.map(url => ({
+        name: downloadName.trim(),
+        url,
+      }));
       setFormData({
         ...formData,
-        images: [...formData.images, imageInput.trim()],
+        downloads: [...formData.downloads, ...newDownloads],
       });
-      setImageInput("");
+      setDownloadName("");
     }
   };
 
-  const handleRemoveImage = (index: number) => {
+  const handleRemoveDownload = (index: number) => {
     setFormData({
       ...formData,
-      images: formData.images.filter((_, i) => i !== index),
+      downloads: formData.downloads.filter((_, i) => i !== index),
     });
   };
 
@@ -196,7 +204,7 @@ function ProductFormContent() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                产品分类
+                产品分类 <span className="text-red-500">*</span>
               </label>
               <select
                 value={formData.categoryId}
@@ -270,16 +278,16 @@ function ProductFormContent() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              产品规格
+              产品规格参数
             </label>
             <textarea
               value={formData.specifications}
               onChange={(e) =>
                 setFormData({ ...formData, specifications: e.target.value })
               }
-              rows={4}
+              rows={6}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="请输入产品规格参数"
+              placeholder="请输入产品规格参数（每行一个参数）"
             />
           </div>
 
@@ -287,36 +295,56 @@ function ProductFormContent() {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               产品图片
             </label>
+            <FileUpload
+              accept="image/*"
+              multiple
+              maxSize={10}
+              label="上传图片"
+              existingFiles={formData.images}
+              onUploadComplete={(urls) => setFormData({ ...formData, images: urls })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              资料下载
+            </label>
             <div className="space-y-3">
               <div className="flex gap-2">
                 <input
-                  type="url"
-                  value={imageInput}
-                  onChange={(e) => setImageInput(e.target.value)}
+                  type="text"
+                  value={downloadName}
+                  onChange={(e) => setDownloadName(e.target.value)}
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="请输入图片URL"
+                  placeholder="资料名称（如：产品说明书）"
                 />
-                <Button type="button" onClick={handleAddImage}>
-                  <Upload className="w-4 h-4 mr-2" />
-                  添加
-                </Button>
               </div>
+              <FileUpload
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.zip"
+                multiple={false}
+                maxSize={20}
+                label="上传资料文件"
+                existingFiles={[]}
+                onUploadComplete={handleAddDownload}
+              />
 
-              {formData.images.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {formData.images.map((image, index) => (
-                    <div key={index} className="relative group">
-                      <img
-                        src={image}
-                        alt={`产品图片 ${index + 1}`}
-                        className="w-full h-32 object-cover rounded-lg"
-                      />
+              {formData.downloads.length > 0 && (
+                <div className="mt-4 space-y-2">
+                  {formData.downloads.map((download, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                    >
+                      <div className="flex-1">
+                        <p className="font-medium text-gray-900">{download.name}</p>
+                        <p className="text-sm text-gray-500 truncate">{download.url}</p>
+                      </div>
                       <button
                         type="button"
-                        onClick={() => handleRemoveImage(index)}
-                        className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => handleRemoveDownload(index)}
+                        className="ml-4 text-red-600 hover:text-red-800"
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-5 h-5" />
                       </button>
                     </div>
                   ))}
