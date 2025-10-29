@@ -96,3 +96,11 @@
 ## 补丁应用 (2025-10-29 晚上)
 - [x] 应用fix-json-product.patch补丁修复后台产品上传JSON字段问题
 
+
+
+## 分支合并 (2025-10-29 晚上)
+- [x] 合并codex/fix-news-and-product-addition-error分支到main
+  - 添加自动slug生成功能
+  - 改进产品和新闻创建逻辑
+  - 允许在创建时设置发布状态
+
