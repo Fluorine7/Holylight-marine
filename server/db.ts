@@ -291,6 +291,14 @@ export async function getNewsById(id: number): Promise<News | null> {
   return result[0] || null;
 }
 
+export async function getNewsBySlug(slug: string): Promise<News | null> {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db.select().from(news).where(eq(news.slug, slug)).limit(1);
+  return result[0] || null;
+}
+
 export async function createNews(
   newsItem: Omit<InsertNews, "slug"> & { slug?: string | null }
 ): Promise<News> {

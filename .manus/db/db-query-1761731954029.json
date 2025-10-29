@@ -1,0 +1,31 @@
+{
+  "query": "SHOW CREATE TABLE news",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SHOW CREATE TABLE news",
+  "rows": [
+    {
+      "Table": "news",
+      "Create Table": "CREATE TABLE `news` ("
+    }
+  ],
+  "messages": [
+    "  `id` int(11) NOT NULL AUTO_INCREMENT,",
+    "  `title` varchar(500) NOT NULL,",
+    "  `content` text DEFAULT NULL,",
+    "  `imageUrl` text NOT NULL,",
+    "  `publishDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+    "  `isActive` tinyint(1) NOT NULL DEFAULT '1',",
+    "  `createdAt` timestamp DEFAULT CURRENT_TIMESTAMP,",
+    "  `updatedAt` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+    "  `slug` varchar(500) NOT NULL DEFAULT '',",
+    "  `summary` text DEFAULT NULL,",
+    "  `coverImage` text DEFAULT NULL,",
+    "  `category` varchar(100) DEFAULT NULL,",
+    "  `isPublished` tinyint(1) NOT NULL DEFAULT '1',",
+    "  PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,",
+    "  UNIQUE KEY `idx_news_slug` (`slug`)",
+    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin"
+  ],
+  "stdout": "Table\tCreate Table\nnews\tCREATE TABLE `news` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `title` varchar(500) NOT NULL,\n  `content` text DEFAULT NULL,\n  `imageUrl` text NOT NULL,\n  `publishDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `isActive` tinyint(1) NOT NULL DEFAULT '1',\n  `createdAt` timestamp DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  `slug` varchar(500) NOT NULL DEFAULT '',\n  `summary` text DEFAULT NULL,\n  `coverImage` text DEFAULT NULL,\n  `category` varchar(100) DEFAULT NULL,\n  `isPublished` tinyint(1) NOT NULL DEFAULT '1',\n  PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,\n  UNIQUE KEY `idx_news_slug` (`slug`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin\n",
+  "stderr": "",
+  "execution_time_ms": 1516
+}

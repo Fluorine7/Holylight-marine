@@ -93,21 +93,25 @@ export default function Home() {
     title: n.title,
     date: new Date(n.publishDate).toLocaleDateString('zh-CN'),
     image: n.coverImage || '',
+    slug: n.slug,
   })) : [
     {
       title: "好利来与GUIDI达成战略合作",
       date: "2025-01-15",
       image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=600&fit=crop",
+      slug: "guidi-partnership",
     },
     {
       title: "2025 中国（上海）第二十八届国际船艇及其技术设备展览会",
       date: "2025-03-20",
       image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
+      slug: "shanghai-boat-show-2025",
     },
     {
       title: "2025年第26届北京国际房车露营展览会",
       date: "2025-04-10",
       image: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=400&h=300&fit=crop",
+      slug: "beijing-rv-expo-2025",
     },
   ];
 
@@ -324,7 +328,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               {/* 大图新闻 */}
               {news[0] && (
-                <Link href="/news">
+                <Link href={`/news/${news[0].slug}`}>
                   <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden group cursor-pointer shadow-lg">
                     <img
                       src={news[0].image}
@@ -345,7 +349,7 @@ export default function Home() {
               {/* 小图新闻 */}
               <div className="flex flex-col gap-4 md:gap-6">
                 {news.slice(1).map((item, index) => (
-                  <Link key={index} href="/news">
+                  <Link key={index} href={`/news/${item.slug}`}>
                     <div className="relative h-[195px] md:h-[242px] rounded-lg overflow-hidden group cursor-pointer shadow-lg">
                       <img
                         src={item.image}

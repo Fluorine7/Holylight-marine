@@ -1,4 +1,5 @@
 import { useEditor, EditorContent } from "@tiptap/react";
+import { useEffect } from "react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
@@ -51,6 +52,13 @@ export default function RichTextEditor({
       },
     },
   });
+
+  // 当value prop变化时更新编辑器内容
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value);
+    }
+  }, [value, editor]);
 
   const handleImageUpload = async () => {
     const input = document.createElement("input");

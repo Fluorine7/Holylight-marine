@@ -17,6 +17,7 @@ import NewsFormPage from "./pages/admin/NewsForm";
 import Login from "./pages/Login";
 import Support from "./pages/Support";
 import News from "./pages/News";
+import NewsDetail from "./pages/NewsDetail";
 import Contact from "./pages/Contact";
 
 function Router() {
@@ -28,6 +29,7 @@ function Router() {
       <Route path={"/product/:id"} component={ProductDetail} />
       <Route path={"/support"} component={Support} />
       <Route path={"/news"} component={News} />
+      <Route path={"/news/:slug"} component={NewsDetail} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/login"} component={Login} />
       <Route path={"/admin"} component={AdminDashboard} />
