@@ -153,7 +153,7 @@ function ProductsContent() {
                           variant="ghost"
                           size="sm"
                           onClick={() =>
-                            setLocation(`/admin/products/${product.id}`)
+                            setLocation(`/admin/products/edit/${product.id}`)
                           }
                         >
                           <Edit className="w-4 h-4" />

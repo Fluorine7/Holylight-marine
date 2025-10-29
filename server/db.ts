@@ -282,6 +282,14 @@ export async function getActiveNews(): Promise<News[]> {
   return result;
 }
 
+export async function getNewsById(id: number): Promise<News | null> {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db.select().from(news).where(eq(news.id, id)).limit(1);
+  return result[0] || null;
+}
+
 export async function createNews(newsItem: InsertNews): Promise<News> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");

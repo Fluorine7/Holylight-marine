@@ -10,8 +10,10 @@ import ProductShop from "./pages/ProductShop";
 import ProductDetail from "./pages/ProductDetail";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ProductsPage from "./pages/admin/Products";
+import ProductFormPage from "./pages/admin/ProductForm";
 import CategoriesPage from "./pages/admin/Categories";
 import NewsManagementPage from "./pages/admin/NewsManagement";
+import NewsFormPage from "./pages/admin/NewsForm";
 import Login from "./pages/Login";
 import Support from "./pages/Support";
 import News from "./pages/News";
@@ -31,8 +33,12 @@ function Router() {
       <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/dashboard"} component={AdminDashboard} />
       <Route path={"/admin/products"} component={ProductsPage} />
+      <Route path={"/admin/products/new"} component={ProductFormPage} />
+      <Route path={"/admin/products/edit/:id"} component={ProductFormPage} />
       <Route path={"/admin/categories"} component={CategoriesPage} />
       <Route path={"/admin/news"} component={NewsManagementPage} />
+      <Route path={"/admin/news/new"} component={NewsFormPage} />
+      <Route path={"/admin/news/edit/:id"} component={NewsFormPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

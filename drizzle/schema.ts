@@ -80,9 +80,11 @@ export const products = mysqlTable("products", {
   categoryId: int("categoryId").notNull(), // 所属分类ID
   name: varchar("name", { length: 500 }).notNull(),
   model: varchar("model", { length: 200 }), // 型号
+  brand: varchar("brand", { length: 200 }), // 品牌
   slug: varchar("slug", { length: 500 }).notNull().unique(),
   description: text("description"), // 产品描述
   specifications: text("specifications"), // 产品参数（JSON格式）
+  price: varchar("price", { length: 100 }), // 价格
   images: text("images"), // 产品图片URL数组（JSON格式）
   order: int("order").default(0).notNull(),
   isPublished: boolean("isPublished").default(true).notNull(),

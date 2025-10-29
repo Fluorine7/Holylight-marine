@@ -132,6 +132,9 @@ export const appRouter = router({
   news: router({
     list: publicProcedure.query(() => db.getActiveNews()),
     listAll: adminProcedure.query(() => db.getAllNews()),
+    getById: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .query(({ input }) => db.getNewsById(input.id)),
     create: adminProcedure
       .input(z.object({
         title: z.string(),

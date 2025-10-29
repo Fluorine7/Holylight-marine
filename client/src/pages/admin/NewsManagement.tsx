@@ -147,7 +147,7 @@ function NewsManagementContent() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => setLocation(`/admin/news/${item.id}`)}
+                          onClick={() => setLocation(`/admin/news/edit/${item.id}`)}
                         >
                           <Edit className="w-4 h-4" />
                         </Button>
