@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Upload, X, FileIcon, Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
@@ -23,6 +23,11 @@ export default function FileUpload({
   const [uploading, setUploading] = useState(false);
   const [files, setFiles] = useState<string[]>(existingFiles);
   const inputId = `file-upload-${Math.random().toString(36).substr(2, 9)}`;
+
+  // 当existingFiles变化时更新files state
+  useEffect(() => {
+    setFiles(existingFiles);
+  }, [existingFiles]);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
