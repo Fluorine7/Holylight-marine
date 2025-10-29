@@ -185,9 +185,11 @@ export default function News() {
       {/* 新闻列表 */}
       <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div className="container">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">
-            {selectedCategory === "全部" ? (regularNews.length > 0 ? "更多新闻" : "所有新闻") : selectedCategory}
-          </h2>
+          {(selectedCategory !== "全部" || regularNews.length > 0) && (
+            <h2 className="text-2xl md:text-3xl font-bold mb-8">
+              {selectedCategory === "全部" ? "更多新闻" : selectedCategory}
+            </h2>
+          )}
           
           {filteredNews.length === 0 ? (
             <div className="text-center py-12">
