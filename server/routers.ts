@@ -200,9 +200,20 @@ export const appRouter = router({
         isPublished: z.boolean().optional(),
       }))
       .mutation(({ input }) => {
-        console.log('[products.create] Received input:', JSON.stringify(input, null, 2));
-        return db.createProduct(input);
+       // 将 images、downloads、specifications 转为字符串，避免数组导致 SQL 报错
+        const processed: any = { ...input };
+        if (processed.images !== undefined && typeof processed.images !== 'string') {
+        try { processed.images = JSON.stringify(processed.images); } catch { processed.images = '[]'; }
+        }
+        if (processed.downloads !== undefined && typeof processed.downloads !== 'string') {
+        try { processed.downloads = JSON.stringify(processed.downloads); } catch { processed.downloads = '[]'; }
+        }
+       if (processed.specifications !== undefined && typeof processed.specifications !== 'string') {
+       try { processed.specifications = JSON.stringify(processed.specifications); } catch { processed.specifications = undefined; }
+       }
+       return db.createProduct(processed);
       }),
+
     update: adminProcedure
       .input(z.object({
         id: z.number(),
