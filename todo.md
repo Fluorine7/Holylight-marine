@@ -66,3 +66,10 @@
 - [x] 修复产品添加页面"添加"按钮无反应的问题(FileUpload ID冲突)
 - [x] 修复新闻添加页面富文本编辑器不显示的问题(更换为Tiptap)
 
+
+
+## Bug修复 (2025-10-29 下午)
+- [x] 修复图片上传失败的问题(认证问题已解决)
+- [x] 修复产品创建SQL错误(更新API schema添加brand/price/downloads字段)
+- [x] 修复shadcn Button组件点击无响应问题(替换为原生button元素)
+

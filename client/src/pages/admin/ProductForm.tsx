@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "wouter";
-import { ArrowLeft, Plus, X } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import AdminLayout from "../../components/AdminLayout";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import FileUpload from "../../components/FileUpload";
@@ -22,20 +22,17 @@ function ProductFormContent() {
   const productId = params.id ? parseInt(params.id) : null;
   const isEdit = productId !== null;
 
-  const [formData, setFormData] = useState({
-    name: "",
-    model: "",
-    categoryId: "",
-    brand: "",
-    description: "",
-    specifications: "",
-    price: "",
-    images: [] as string[],
-    downloads: [] as { name: string; url: string }[],
-    isPublished: true,
-  });
-
+  const [name, setName] = useState("");
+  const [model, setModel] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [brand, setBrand] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [specifications, setSpecifications] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [downloads, setDownloads] = useState<{ name: string; url: string }[]>([]);
   const [downloadName, setDownloadName] = useState("");
+  const [isPublished, setIsPublished] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data: categories } = trpc.productCategories.listAll.useQuery();
@@ -45,57 +42,34 @@ function ProductFormContent() {
   );
 
   const utils = trpc.useUtils();
-  const createMutation = trpc.products.create.useMutation({
-    onSuccess: () => {
-      utils.products.listAll.invalidate();
-      toast.success("产品创建成功！");
-      setLocation("/admin/products");
-    },
-    onError: (error) => {
-      toast.error(`创建失败: ${error.message}`);
-    },
-  });
-
-  const updateMutation = trpc.products.update.useMutation({
-    onSuccess: () => {
-      utils.products.listAll.invalidate();
-      toast.success("产品更新成功！");
-      setLocation("/admin/products");
-    },
-    onError: (error) => {
-      toast.error(`更新失败: ${error.message}`);
-    },
-  });
+  
+  const createMutation = trpc.products.create.useMutation();
+  const updateMutation = trpc.products.update.useMutation();
 
   useEffect(() => {
     if (product) {
-      setFormData({
-        name: product.name,
-        model: product.model || "",
-        categoryId: product.categoryId?.toString() || "",
-        brand: product.brand || "",
-        description: product.description || "",
-        specifications: product.specifications || "",
-        price: product.price || "",
-        images: product.images ? JSON.parse(product.images) : [],
-        downloads: product.downloads ? JSON.parse(product.downloads) : [],
-        isPublished: product.isPublished,
-      });
+      setName(product.name);
+      setModel(product.model || "");
+      setCategoryId(product.categoryId?.toString() || "");
+      setBrand(product.brand || "");
+      setPrice(product.price || "");
+      setDescription(product.description || "");
+      setSpecifications(product.specifications || "");
+      setImages(product.images ? JSON.parse(product.images) : []);
+      setDownloads(product.downloads ? JSON.parse(product.downloads) : []);
+      setIsPublished(product.isPublished);
     }
   }, [product]);
 
-  const generateSlug = (name: string) => {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .substring(0, 100) + '-' + Date.now();
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    console.log("handleSubmit called");
     
-    if (!formData.categoryId) {
+    if (!name.trim()) {
+      toast.error("请输入产品名称");
+      return;
+    }
+    
+    if (!categoryId) {
       toast.error("请选择产品分类");
       return;
     }
@@ -103,59 +77,49 @@ function ProductFormContent() {
     setIsSubmitting(true);
 
     try {
-      const slug = isEdit ? product!.slug : generateSlug(formData.name);
+      const slug = isEdit 
+        ? product!.slug 
+        : name.toLowerCase()
+            .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .substring(0, 100) + '-' + Date.now();
       
       const data = {
-        name: formData.name,
+        name: name.trim(),
         slug,
-        categoryId: parseInt(formData.categoryId),
-        model: formData.model || undefined,
-        brand: formData.brand || undefined,
-        description: formData.description || undefined,
-        specifications: formData.specifications || undefined,
-        price: formData.price || undefined,
-        images: JSON.stringify(formData.images),
-        downloads: JSON.stringify(formData.downloads),
-        isPublished: formData.isPublished,
+        categoryId: parseInt(categoryId),
+        model: model.trim() || undefined,
+        brand: brand.trim() || undefined,
+        description: description.trim() || undefined,
+        specifications: specifications.trim() || undefined,
+        price: price.trim() || undefined,
+        images: JSON.stringify(images),
+        downloads: JSON.stringify(downloads),
+        isPublished,
       };
 
       if (isEdit) {
         await updateMutation.mutateAsync({ id: productId, ...data });
+        toast.success("产品更新成功！");
       } else {
         await createMutation.mutateAsync(data);
+        toast.success("产品创建成功！");
       }
-    } catch (error) {
+      
+      utils.products.listAll.invalidate();
+      setLocation("/admin/products");
+    } catch (error: any) {
       console.error("提交失败:", error);
+      toast.error(`${isEdit ? "更新" : "创建"}失败: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleAddDownload = (urls: string[]) => {
-    if (urls.length > 0 && downloadName.trim()) {
-      const newDownloads = urls.map(url => ({
-        name: downloadName.trim(),
-        url,
-      }));
-      setFormData({
-        ...formData,
-        downloads: [...formData.downloads, ...newDownloads],
-      });
-      setDownloadName("");
-    }
-  };
-
-  const handleRemoveDownload = (index: number) => {
-    setFormData({
-      ...formData,
-      downloads: formData.downloads.filter((_, i) => i !== index),
-    });
-  };
-
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex items-center gap-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-center gap-4 mb-6">
           <Button
             variant="outline"
             onClick={() => setLocation("/admin/products")}
@@ -173,7 +137,7 @@ function ProductFormContent() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
+        <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -182,8 +146,8 @@ function ProductFormContent() {
               <input
                 type="text"
                 required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="请输入产品名称"
               />
@@ -195,8 +159,8 @@ function ProductFormContent() {
               </label>
               <input
                 type="text"
-                value={formData.model}
-                onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="请输入产品型号"
               />
@@ -207,8 +171,8 @@ function ProductFormContent() {
                 产品分类 <span className="text-red-500">*</span>
               </label>
               <select
-                value={formData.categoryId}
-                onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               >
                 <option value="">请选择分类</option>
@@ -226,8 +190,8 @@ function ProductFormContent() {
               </label>
               <input
                 type="text"
-                value={formData.brand}
-                onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="请输入品牌名称"
               />
@@ -239,8 +203,8 @@ function ProductFormContent() {
               </label>
               <input
                 type="text"
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="请输入价格"
               />
@@ -251,14 +215,12 @@ function ProductFormContent() {
                 发布状态
               </label>
               <select
-                value={formData.isPublished ? "true" : "false"}
-                onChange={(e) =>
-                  setFormData({ ...formData, isPublished: e.target.value === "true" })
-                }
+                value={isPublished ? "published" : "draft"}
+                onChange={(e) => setIsPublished(e.target.value === "published")}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               >
-                <option value="true">已发布</option>
-                <option value="false">草稿</option>
+                <option value="published">已发布</option>
+                <option value="draft">草稿</option>
               </select>
             </div>
           </div>
@@ -268,8 +230,8 @@ function ProductFormContent() {
               产品描述
             </label>
             <textarea
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               rows={4}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="请输入产品描述"
@@ -281,11 +243,9 @@ function ProductFormContent() {
               产品规格参数
             </label>
             <textarea
-              value={formData.specifications}
-              onChange={(e) =>
-                setFormData({ ...formData, specifications: e.target.value })
-              }
-              rows={6}
+              value={specifications}
+              onChange={(e) => setSpecifications(e.target.value)}
+              rows={4}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               placeholder="请输入产品规格参数（每行一个参数）"
             />
@@ -297,12 +257,32 @@ function ProductFormContent() {
             </label>
             <FileUpload
               accept="image/*"
-              multiple
+              multiple={true}
               maxSize={10}
               label="上传图片"
-              existingFiles={formData.images}
-              onUploadComplete={(urls) => setFormData({ ...formData, images: urls })}
+              existingFiles={images}
+              onUploadComplete={(urls) => setImages([...images, ...urls])}
             />
+            {images.length > 0 && (
+              <div className="mt-4 grid grid-cols-4 gap-4">
+                {images.map((url, index) => (
+                  <div key={index} className="relative group">
+                    <img
+                      src={url}
+                      alt={`产品图片 ${index + 1}`}
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setImages(images.filter((_, i) => i !== index))}
+                      className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
@@ -310,27 +290,32 @@ function ProductFormContent() {
               资料下载
             </label>
             <div className="space-y-3">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={downloadName}
-                  onChange={(e) => setDownloadName(e.target.value)}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="资料名称（如：产品说明书）"
-                />
-              </div>
+              <input
+                type="text"
+                value={downloadName}
+                onChange={(e) => setDownloadName(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                placeholder="资料名称（如：产品说明书）"
+              />
               <FileUpload
                 accept=".pdf,.doc,.docx,.xls,.xlsx,.zip"
                 multiple={false}
                 maxSize={20}
                 label="上传资料文件"
                 existingFiles={[]}
-                onUploadComplete={handleAddDownload}
+                onUploadComplete={(urls) => {
+                  if (urls.length > 0 && downloadName.trim()) {
+                    setDownloads([...downloads, { name: downloadName.trim(), url: urls[0] }]);
+                    setDownloadName("");
+                  } else if (!downloadName.trim()) {
+                    toast.error("请先输入资料名称");
+                  }
+                }}
               />
 
-              {formData.downloads.length > 0 && (
+              {downloads.length > 0 && (
                 <div className="mt-4 space-y-2">
-                  {formData.downloads.map((download, index) => (
+                  {downloads.map((download, index) => (
                     <div
                       key={index}
                       className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
@@ -341,7 +326,7 @@ function ProductFormContent() {
                       </div>
                       <button
                         type="button"
-                        onClick={() => handleRemoveDownload(index)}
+                        onClick={() => setDownloads(downloads.filter((_, i) => i !== index))}
                         className="ml-4 text-red-600 hover:text-red-800"
                       >
                         <X className="w-5 h-5" />
@@ -354,18 +339,26 @@ function ProductFormContent() {
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t">
-            <Button
+            <button
               type="button"
-              variant="outline"
               onClick={() => setLocation("/admin/products")}
+              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
             >
               取消
-            </Button>
-            <Button type="submit" disabled={isSubmitting}>
+            </button>
+            <button 
+              type="button" 
+              disabled={isSubmitting}
+              onClick={() => {
+                console.log('Native button clicked!');
+                handleSubmit();
+              }}
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50"
+            >
               {isSubmitting ? "保存中..." : isEdit ? "保存修改" : "创建产品"}
-            </Button>
+            </button>
           </div>
-        </form>
+        </div>
       </div>
     </AdminLayout>
   );

@@ -17,9 +17,14 @@ const upload = multer({
 router.post("/api/upload", upload.single("file"), async (req, res) => {
   try {
     // 验证管理员权限
-    const user = await sdk.authenticateRequest(req);
-    if (!user || user.role !== 'admin') {
-      return res.status(403).json({ error: "权限不足" });
+    try {
+      const user = await sdk.authenticateRequest(req);
+      if (!user || user.role !== 'admin') {
+        return res.status(403).json({ error: "权限不足" });
+      }
+    } catch (authError) {
+      console.error("认证失败:", authError);
+      return res.status(401).json({ error: "未登录或登录已过期" });
     }
 
     if (!req.file) {
