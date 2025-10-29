@@ -22,6 +22,7 @@ export default function FileUpload({
 }: FileUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [files, setFiles] = useState<string[]>(existingFiles);
+  const inputId = `file-upload-${Math.random().toString(36).substr(2, 9)}`;
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
@@ -92,28 +93,26 @@ export default function FileUpload({
           multiple={multiple}
           onChange={handleFileSelect}
           className="hidden"
-          id="file-upload"
+          id={inputId}
           disabled={uploading}
         />
-        <label htmlFor="file-upload">
-          <Button
-            type="button"
-            disabled={uploading}
-            onClick={() => document.getElementById("file-upload")?.click()}
-          >
-            {uploading ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                上传中...
-              </>
-            ) : (
-              <>
-                <Upload className="w-4 h-4 mr-2" />
-                {label}
-              </>
-            )}
-          </Button>
-        </label>
+        <Button
+          type="button"
+          disabled={uploading}
+          onClick={() => document.getElementById(inputId)?.click()}
+        >
+          {uploading ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              上传中...
+            </>
+          ) : (
+            <>
+              <Upload className="w-4 h-4 mr-2" />
+              {label}
+            </>
+          )}
+        </Button>
         <span className="text-sm text-gray-500">
           {accept === "image/*" ? "支持图片格式" : "支持文档格式"}，最大 {maxSize}MB
         </span>
