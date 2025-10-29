@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "wouter";
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
@@ -10,6 +11,11 @@ export default function NewsDetail() {
   const slug = params.slug || "";
 
   const { data: news, isLoading, error } = trpc.news.getBySlug.useQuery({ slug });
+
+  // 页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (isLoading) {
     return (
