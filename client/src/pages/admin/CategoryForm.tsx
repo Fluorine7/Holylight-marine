@@ -74,9 +74,9 @@ function CategoryFormContent() {
       const data = {
         name,
         slug: slug || name.toLowerCase().replace(/\s+/g, "-"),
-        description: description || null,
-        imageUrl: imageUrl || null,
-        parentId: parentId,
+        description: description || undefined,
+        imageUrl: imageUrl || undefined,
+        parentId: parentId || undefined,
         order,
         isActive,
       };
