@@ -1,5 +1,6 @@
 import { eq, isNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
+import { sql } from "drizzle-orm";
 import {
   InsertUser,
   users,
@@ -458,16 +459,16 @@ export async function createProduct(
 
   console.log('[createProduct] Final values before insert:', JSON.stringify(values, null, 2));
   
-  // Use raw SQL to bypass drizzle ORM issues
+  // Use raw SQL with proper parameter binding
   const fields = Object.keys(values);
-  const placeholders = fields.map(() => '?').join(', ');
-  const sql = `INSERT INTO products (${fields.join(', ')}) VALUES (${placeholders})`;
   const params = fields.map(f => values[f]);
   
-  console.log('[createProduct] SQL:', sql);
-  console.log('[createProduct] Params:', params);
+  const query = sql.raw(`INSERT INTO products (${fields.join(', ')}) VALUES (${fields.map(() => '?').join(', ')})`, params);
   
-  const result = await db.execute(sql, params);
+  console.log('[createProduct] SQL fields:', fields);
+  console.log('[createProduct] SQL params:', params);
+  
+  const result = await db.execute(query);
   const id = Number(result[0].insertId);
   const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
   return created[0];
