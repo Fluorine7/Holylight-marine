@@ -180,11 +180,19 @@ function ProductFormContent() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               >
                 <option value="">请选择分类</option>
-                {categories?.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
+                {categories
+                  ?.filter(c => !c.parentId) // 一级分类
+                  .map((parent) => (
+                    <optgroup key={parent.id} label={parent.name}>
+                      {categories
+                        .filter(c => c.parentId === parent.id) // 二级分类
+                        .map((child) => (
+                          <option key={child.id} value={child.id}>
+                            {child.name}
+                          </option>
+                        ))}
+                    </optgroup>
+                  ))}
               </select>
             </div>
 
