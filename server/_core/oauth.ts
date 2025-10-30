@@ -3,6 +3,7 @@ import type { Express, Request, Response } from "express";
 import * as db from "../db";
 import { getSessionCookieOptions } from "./cookies";
 import { sdk } from "./sdk";
+import bcrypt from "bcryptjs";
 
 function getQueryParam(req: Request, key: string): string | undefined {
   const value = req.query[key];
@@ -14,23 +15,25 @@ export function registerOAuthRoutes(app: Express) {
   app.post("/api/auth/simple-login", async (req: Request, res: Response) => {
     const { username, password } = req.body;
 
-    // 简单验证（实际应该查询数据库并验证密码哈希）
-    // 这里使用默认账号：admin / admin123
-    if (username === "admin" && password === "admin123") {
+    // 验证用户名和密码
+    if (username === "admin") {
       try {
-        // 查找或创建管理员用户
+        // 查找管理员用户
         let user = await db.getUser("admin");
-        if (!user) {
-          await db.upsertUser({
-            id: "admin",
-            name: "管理员",
-            email: null,
-            loginMethod: "simple",
-            role: "admin",
-            lastSignedIn: new Date(),
-          });
-          user = await db.getUser("admin");
-        } else {
+        if (!user || !user.password) {
+          // 用户不存在或没有设置密码
+          res.status(401).json({ error: "用户名或密码错误" });
+          return;
+        }
+
+        // 验证密码
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+          res.status(401).json({ error: "用户名或密码错误" });
+          return;
+        }
+
+        // 密码正确，
           // 更新最后登录时间
           await db.upsertUser({
             ...user,
