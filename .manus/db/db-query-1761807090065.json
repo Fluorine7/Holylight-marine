@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO productCategories (name, slug, parentId, `order`, isActive) VALUES ('充电器逆变器', 'charger-inverter', NULL, 124, true)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute INSERT INTO productCategories (name, slug, parentId, `order`, isActive) VALUES ('充电器逆变器', 'charger-inverter', NULL, 124, true)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1524
+}

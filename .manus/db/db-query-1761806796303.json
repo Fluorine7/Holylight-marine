@@ -1,0 +1,622 @@
+{
+  "query": "SELECT id, name, parentId, \nCASE WHEN parentId IS NULL THEN '一级分类' ELSE '二级分类' END as level\nFROM productCategories \nORDER BY COALESCE(parentId, id), id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, name, parentId, \nCASE WHEN parentId IS NULL THEN '一级分类' ELSE '二级分类' END as level\nFROM productCategories \nORDER BY COALESCE(parentId, id), id",
+  "rows": [
+    {
+      "id": "25",
+      "name": "水泵",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "26",
+      "name": "Rule",
+      "parentId": "25",
+      "level": "二级分类"
+    },
+    {
+      "id": "29",
+      "name": "Jabsco",
+      "parentId": "25",
+      "level": "二级分类"
+    },
+    {
+      "id": "34",
+      "name": "Flojet",
+      "parentId": "25",
+      "level": "二级分类"
+    },
+    {
+      "id": "36",
+      "name": "CEM",
+      "parentId": "25",
+      "level": "二级分类"
+    },
+    {
+      "id": "48",
+      "name": "rule",
+      "parentId": "25",
+      "level": "二级分类"
+    },
+    {
+      "id": "27",
+      "name": "舱底泵",
+      "parentId": "26",
+      "level": "二级分类"
+    },
+    {
+      "id": "28",
+      "name": "淋浴排水系统",
+      "parentId": "26",
+      "level": "二级分类"
+    },
+    {
+      "id": "30",
+      "name": "排污泵",
+      "parentId": "29",
+      "level": "二级分类"
+    },
+    {
+      "id": "31",
+      "name": "压力供水系统",
+      "parentId": "29",
+      "level": "二级分类"
+    },
+    {
+      "id": "32",
+      "name": "冲洗泵",
+      "parentId": "29",
+      "level": "二级分类"
+    },
+    {
+      "id": "33",
+      "name": "淡水泵",
+      "parentId": "29",
+      "level": "二级分类"
+    },
+    {
+      "id": "35",
+      "name": "压力供水系统",
+      "parentId": "34",
+      "level": "二级分类"
+    },
+    {
+      "id": "37",
+      "name": "电动泵",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "38",
+      "name": "驳船电动泵",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "39",
+      "name": "发动机驱动泵",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "40",
+      "name": "液压马达泵",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "41",
+      "name": "水压系统",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "42",
+      "name": "电子水压系统",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "43",
+      "name": "电动泵配件",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "44",
+      "name": "数字流量计",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "45",
+      "name": "手动泵",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "46",
+      "name": "循环泵",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "47",
+      "name": "12-24V直流电动泵",
+      "parentId": "36",
+      "level": "二级分类"
+    },
+    {
+      "id": "49",
+      "name": "淋浴排水系统",
+      "parentId": "48",
+      "level": "二级分类"
+    },
+    {
+      "id": "50",
+      "name": "通风系统",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "51",
+      "name": "Rule",
+      "parentId": "50",
+      "level": "二级分类"
+    },
+    {
+      "id": "53",
+      "name": "Jabsco",
+      "parentId": "50",
+      "level": "二级分类"
+    },
+    {
+      "id": "55",
+      "name": "CEM",
+      "parentId": "50",
+      "level": "二级分类"
+    },
+    {
+      "id": "58",
+      "name": "RULE",
+      "parentId": "50",
+      "level": "二级分类"
+    },
+    {
+      "id": "52",
+      "name": "轴流式风机",
+      "parentId": "51",
+      "level": "二级分类"
+    },
+    {
+      "id": "54",
+      "name": "蜗牛式风机",
+      "parentId": "53",
+      "level": "二级分类"
+    },
+    {
+      "id": "56",
+      "name": "轴流风机",
+      "parentId": "55",
+      "level": "二级分类"
+    },
+    {
+      "id": "57",
+      "name": "风机配件",
+      "parentId": "55",
+      "level": "二级分类"
+    },
+    {
+      "id": "59",
+      "name": "轴流式风机",
+      "parentId": "58",
+      "level": "二级分类"
+    },
+    {
+      "id": "60",
+      "name": "锚机",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "61",
+      "name": "Italwinch",
+      "parentId": "60",
+      "level": "二级分类"
+    },
+    {
+      "id": "62",
+      "name": "立式锚机",
+      "parentId": "61",
+      "level": "二级分类"
+    },
+    {
+      "id": "63",
+      "name": "卧式锚机",
+      "parentId": "61",
+      "level": "二级分类"
+    },
+    {
+      "id": "64",
+      "name": "绞盘",
+      "parentId": "61",
+      "level": "二级分类"
+    },
+    {
+      "id": "65",
+      "name": "舵机",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "66",
+      "name": "Multiflex",
+      "parentId": "65",
+      "level": "二级分类"
+    },
+    {
+      "id": "68",
+      "name": "LS",
+      "parentId": "65",
+      "level": "二级分类"
+    },
+    {
+      "id": "70",
+      "name": "Dometic",
+      "parentId": "65",
+      "level": "二级分类"
+    },
+    {
+      "id": "72",
+      "name": "主机遥控",
+      "parentId": "65",
+      "level": "二级分类"
+    },
+    {
+      "id": "67",
+      "name": "挂机",
+      "parentId": "66",
+      "level": "二级分类"
+    },
+    {
+      "id": "69",
+      "name": "艉内机方向控制",
+      "parentId": "68",
+      "level": "二级分类"
+    },
+    {
+      "id": "71",
+      "name": "艉外机方向控制",
+      "parentId": "70",
+      "level": "二级分类"
+    },
+    {
+      "id": "73",
+      "name": "NHK MEC",
+      "parentId": "72",
+      "level": "二级分类"
+    },
+    {
+      "id": "74",
+      "name": "机械遥控",
+      "parentId": "72",
+      "level": "二级分类"
+    },
+    {
+      "id": "75",
+      "name": "电动遥控",
+      "parentId": "72",
+      "level": "二级分类"
+    },
+    {
+      "id": "76",
+      "name": "电池开关",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "77",
+      "name": "Blusea",
+      "parentId": "76",
+      "level": "二级分类"
+    },
+    {
+      "id": "78",
+      "name": "雨刮器",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "79",
+      "name": "摆臂式",
+      "parentId": "78",
+      "level": "二级分类"
+    },
+    {
+      "id": "80",
+      "name": "Roca",
+      "parentId": "78",
+      "level": "二级分类"
+    },
+    {
+      "id": "82",
+      "name": "Speich",
+      "parentId": "78",
+      "level": "二级分类"
+    },
+    {
+      "id": "83",
+      "name": "Decca",
+      "parentId": "78",
+      "level": "二级分类"
+    },
+    {
+      "id": "84",
+      "name": "roca",
+      "parentId": "78",
+      "level": "二级分类"
+    },
+    {
+      "id": "86",
+      "name": "平移式",
+      "parentId": "78",
+      "level": "二级分类"
+    },
+    {
+      "id": "81",
+      "name": "摆臂式",
+      "parentId": "80",
+      "level": "二级分类"
+    },
+    {
+      "id": "85",
+      "name": "Exalto",
+      "parentId": "84",
+      "level": "二级分类"
+    },
+    {
+      "id": "87",
+      "name": "Decca",
+      "parentId": "86",
+      "level": "二级分类"
+    },
+    {
+      "id": "88",
+      "name": "喇叭",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "89",
+      "name": "Marco",
+      "parentId": "88",
+      "level": "二级分类"
+    },
+    {
+      "id": "90",
+      "name": "液位计",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "91",
+      "name": "KUS",
+      "parentId": "90",
+      "level": "二级分类"
+    },
+    {
+      "id": "92",
+      "name": "仪表",
+      "parentId": "91",
+      "level": "二级分类"
+    },
+    {
+      "id": "93",
+      "name": "传感器",
+      "parentId": "91",
+      "level": "二级分类"
+    },
+    {
+      "id": "94",
+      "name": "尾轴密封",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "95",
+      "name": "PYI",
+      "parentId": "94",
+      "level": "二级分类"
+    },
+    {
+      "id": "96",
+      "name": "碰球",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "97",
+      "name": "Polyform 挪威",
+      "parentId": "96",
+      "level": "二级分类"
+    },
+    {
+      "id": "98",
+      "name": "锌块",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "99",
+      "name": "Martyr",
+      "parentId": "98",
+      "level": "二级分类"
+    },
+    {
+      "id": "100",
+      "name": "轴锌块",
+      "parentId": "99",
+      "level": "二级分类"
+    },
+    {
+      "id": "101",
+      "name": "压浪板锌块",
+      "parentId": "99",
+      "level": "二级分类"
+    },
+    {
+      "id": "102",
+      "name": "舵锌块",
+      "parentId": "99",
+      "level": "二级分类"
+    },
+    {
+      "id": "103",
+      "name": "船体锌块",
+      "parentId": "99",
+      "level": "二级分类"
+    },
+    {
+      "id": "104",
+      "name": "磁罗经",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "105",
+      "name": "Ritchie",
+      "parentId": "104",
+      "level": "二级分类"
+    },
+    {
+      "id": "106",
+      "name": "马桶",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "107",
+      "name": "Jabsco",
+      "parentId": "106",
+      "level": "二级分类"
+    },
+    {
+      "id": "110",
+      "name": "TECMA",
+      "parentId": "106",
+      "level": "二级分类"
+    },
+    {
+      "id": "111",
+      "name": "Planus",
+      "parentId": "106",
+      "level": "二级分类"
+    },
+    {
+      "id": "108",
+      "name": "电动马桶",
+      "parentId": "107",
+      "level": "二级分类"
+    },
+    {
+      "id": "109",
+      "name": "手动马桶",
+      "parentId": "107",
+      "level": "二级分类"
+    },
+    {
+      "id": "112",
+      "name": "灭火器",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "113",
+      "name": "Fireboy",
+      "parentId": "112",
+      "level": "二级分类"
+    },
+    {
+      "id": "114",
+      "name": "岸电插头插座",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "115",
+      "name": "Marinco",
+      "parentId": "114",
+      "level": "二级分类"
+    },
+    {
+      "id": "116",
+      "name": "污水处理装置",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "117",
+      "name": "TECNICOMAR",
+      "parentId": "116",
+      "level": "二级分类"
+    },
+    {
+      "id": "118",
+      "name": "海水淡化装置",
+      "parentId": "116",
+      "level": "二级分类"
+    },
+    {
+      "id": "119",
+      "name": "Aquaprime",
+      "parentId": "116",
+      "level": "二级分类"
+    },
+    {
+      "id": "120",
+      "name": "油水分离器",
+      "parentId": "116",
+      "level": "二级分类"
+    },
+    {
+      "id": "121",
+      "name": "Griffin",
+      "parentId": "116",
+      "level": "二级分类"
+    },
+    {
+      "id": "122",
+      "name": "冰箱",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "123",
+      "name": "Dometic",
+      "parentId": "122",
+      "level": "二级分类"
+    },
+    {
+      "id": "124",
+      "name": "充电器",
+      "parentId": "NULL",
+      "level": "一级分类"
+    },
+    {
+      "id": "125",
+      "name": "Victron",
+      "parentId": "124",
+      "level": "二级分类"
+    },
+    {
+      "id": "126",
+      "name": "逆变器",
+      "parentId": "NULL",
+      "level": "一级分类"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tparentId\tlevel\n25\t水泵\tNULL\t一级分类\n26\tRule\t25\t二级分类\n29\tJabsco\t25\t二级分类\n34\tFlojet\t25\t二级分类\n36\tCEM\t25\t二级分类\n48\trule\t25\t二级分类\n27\t舱底泵\t26\t二级分类\n28\t淋浴排水系统\t26\t二级分类\n30\t排污泵\t29\t二级分类\n31\t压力供水系统\t29\t二级分类\n32\t冲洗泵\t29\t二级分类\n33\t淡水泵\t29\t二级分类\n35\t压力供水系统\t34\t二级分类\n37\t电动泵\t36\t二级分类\n38\t驳船电动泵\t36\t二级分类\n39\t发动机驱动泵\t36\t二级分类\n40\t液压马达泵\t36\t二级分类\n41\t水压系统\t36\t二级分类\n42\t电子水压系统\t36\t二级分类\n43\t电动泵配件\t36\t二级分类\n44\t数字流量计\t36\t二级分类\n45\t手动泵\t36\t二级分类\n46\t循环泵\t36\t二级分类\n47\t12-24V直流电动泵\t36\t二级分类\n49\t淋浴排水系统\t48\t二级分类\n50\t通风系统\tNULL\t一级分类\n51\tRule\t50\t二级分类\n53\tJabsco\t50\t二级分类\n55\tCEM\t50\t二级分类\n58\tRULE\t50\t二级分类\n52\t轴流式风机\t51\t二级分类\n54\t蜗牛式风机\t53\t二级分类\n56\t轴流风机\t55\t二级分类\n57\t风机配件\t55\t二级分类\n59\t轴流式风机\t58\t二级分类\n60\t锚机\tNULL\t一级分类\n61\tItalwinch\t60\t二级分类\n62\t立式锚机\t61\t二级分类\n63\t卧式锚机\t61\t二级分类\n64\t绞盘\t61\t二级分类\n65\t舵机\tNULL\t一级分类\n66\tMultiflex\t65\t二级分类\n68\tLS\t65\t二级分类\n70\tDometic\t65\t二级分类\n72\t主机遥控\t65\t二级分类\n67\t挂机\t66\t二级分类\n69\t艉内机方向控制\t68\t二级分类\n71\t艉外机方向控制\t70\t二级分类\n73\tNHK MEC\t72\t二级分类\n74\t机械遥控\t72\t二级分类\n75\t电动遥控\t72\t二级分类\n76\t电池开关\tNULL\t一级分类\n77\tBlusea\t76\t二级分类\n78\t雨刮器\tNULL\t一级分类\n79\t摆臂式\t78\t二级分类\n80\tRoca\t78\t二级分类\n82\tSpeich\t78\t二级分类\n83\tDecca\t78\t二级分类\n84\troca\t78\t二级分类\n86\t平移式\t78\t二级分类\n81\t摆臂式\t80\t二级分类\n85\tExalto\t84\t二级分类\n87\tDecca\t86\t二级分类\n88\t喇叭\tNULL\t一级分类\n89\tMarco\t88\t二级分类\n90\t液位计\tNULL\t一级分类\n91\tKUS\t90\t二级分类\n92\t仪表\t91\t二级分类\n93\t传感器\t91\t二级分类\n94\t尾轴密封\tNULL\t一级分类\n95\tPYI\t94\t二级分类\n96\t碰球\tNULL\t一级分类\n97\tPolyform 挪威\t96\t二级分类\n98\t锌块\tNULL\t一级分类\n99\tMartyr\t98\t二级分类\n100\t轴锌块\t99\t二级分类\n101\t压浪板锌块\t99\t二级分类\n102\t舵锌块\t99\t二级分类\n103\t船体锌块\t99\t二级分类\n104\t磁罗经\tNULL\t一级分类\n105\tRitchie\t104\t二级分类\n106\t马桶\tNULL\t一级分类\n107\tJabsco\t106\t二级分类\n110\tTECMA\t106\t二级分类\n111\tPlanus\t106\t二级分类\n108\t电动马桶\t107\t二级分类\n109\t手动马桶\t107\t二级分类\n112\t灭火器\tNULL\t一级分类\n113\tFireboy\t112\t二级分类\n114\t岸电插头插座\tNULL\t一级分类\n115\tMarinco\t114\t二级分类\n116\t污水处理装置\tNULL\t一级分类\n117\tTECNICOMAR\t116\t二级分类\n118\t海水淡化装置\t116\t二级分类\n119\tAquaprime\t116\t二级分类\n120\t油水分离器\t116\t二级分类\n121\tGriffin\t116\t二级分类\n122\t冰箱\tNULL\t一级分类\n123\tDometic\t122\t二级分类\n124\t充电器\tNULL\t一级分类\n125\tVictron\t124\t二级分类\n126\t逆变器\tNULL\t一级分类\n",
+  "stderr": "",
+  "execution_time_ms": 2633
+}

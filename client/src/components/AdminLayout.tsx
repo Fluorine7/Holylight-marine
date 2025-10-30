@@ -4,6 +4,7 @@ import {
   LayoutDashboard, 
   Package, 
   FolderTree, 
+  Tag,
   Newspaper, 
   LogOut, 
   Menu, 
@@ -22,7 +23,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   const menuItems = [
     { path: "/admin", icon: LayoutDashboard, label: "仪表盘" },
-    { path: "/admin/categories", icon: FolderTree, label: "产品分类" },
+    { path: "/admin/categories", icon: FolderTree, label: "产品类别" },
+    { path: "/admin/brands", icon: Tag, label: "品牌管理" },
     { path: "/admin/products", icon: Package, label: "产品管理" },
     { path: "/admin/news", icon: Newspaper, label: "新闻管理" },
   ];

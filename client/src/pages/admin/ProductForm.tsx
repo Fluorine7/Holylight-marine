@@ -25,7 +25,7 @@ function ProductFormContent() {
   const [name, setName] = useState("");
   const [model, setModel] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [brand, setBrand] = useState("");
+  const [brandId, setBrandId] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [specifications, setSpecifications] = useState("");
@@ -36,6 +36,7 @@ function ProductFormContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data: categories } = trpc.productCategories.listAll.useQuery();
+  const { data: brands } = trpc.brands.listAll.useQuery();
   const { data: product } = trpc.products.getById.useQuery(
     { id: productId! },
     { enabled: isEdit }
@@ -51,7 +52,7 @@ function ProductFormContent() {
       setName(product.name);
       setModel(product.model || "");
       setCategoryId(product.categoryId?.toString() || "");
-      setBrand(product.brand || "");
+      setBrandId(product.brandId?.toString() || "");
       setPrice(product.price || "");
       setDescription(product.description || "");
       setSpecifications(product.specifications || "");
@@ -74,6 +75,11 @@ function ProductFormContent() {
       return;
     }
     
+    if (!brandId) {
+      toast.error("请选择品牌");
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
@@ -88,8 +94,8 @@ function ProductFormContent() {
         name: name.trim(),
         slug,
         categoryId: parseInt(categoryId),
+        brandId: brandId ? parseInt(brandId) : undefined,
         model: model.trim() || undefined,
-        brand: brand.trim() || undefined,
         description: description.trim() || undefined,
         specifications: specifications.trim() || undefined,
         price: price.trim() || undefined,
@@ -198,15 +204,21 @@ function ProductFormContent() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                品牌
+                品牌 <span className="text-red-500">*</span>
               </label>
-              <input
-                type="text"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
+              <select
+                value={brandId}
+                onChange={(e) => setBrandId(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                placeholder="请输入品牌名称"
-              />
+                required
+              >
+                <option value="">请选择品牌</option>
+                {brands?.map((brand) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>

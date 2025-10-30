@@ -98,6 +98,41 @@ export const appRouter = router({
       .mutation(({ input }) => db.deleteProductCategory(input.id)),
   }),
 
+  // 品牌管理
+  brands: router({
+    list: publicProcedure.query(() => db.getActiveBrands()),
+    listAll: adminProcedure.query(() => db.getAllBrands()),
+    getById: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .query(({ input }) => db.getBrandById(input.id)),
+    create: adminProcedure
+      .input(z.object({
+        name: z.string(),
+        slug: z.string(),
+        logoUrl: z.string().optional(),
+        website: z.string().optional(),
+        order: z.number().default(0),
+      }))
+      .mutation(({ input }) => db.createBrand(input)),
+    update: adminProcedure
+      .input(z.object({
+        id: z.number(),
+        name: z.string().optional(),
+        slug: z.string().optional(),
+        logoUrl: z.string().optional(),
+        website: z.string().optional(),
+        order: z.number().optional(),
+        isActive: z.boolean().optional(),
+      }))
+      .mutation(({ input }) => {
+        const { id, ...data } = input;
+        return db.updateBrand(id, data);
+      }),
+    delete: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(({ input }) => db.deleteBrand(input.id)),
+  }),
+
   // 合作伙伴管理
   partners: router({
     list: publicProcedure.query(() => db.getActivePartners()),
@@ -187,9 +222,9 @@ export const appRouter = router({
     create: adminProcedure
       .input(z.object({
         categoryId: z.number(),
+        brandId: z.number().optional(),
         name: z.string(),
         model: z.string().optional(),
-        brand: z.string().optional(),
         price: z.string().optional(),
         slug: z.string().optional(),
         description: z.string().optional(),
@@ -208,9 +243,9 @@ export const appRouter = router({
       .input(z.object({
         id: z.number(),
         categoryId: z.number().optional(),
+        brandId: z.number().optional(),
         name: z.string().optional(),
         model: z.string().optional(),
-        brand: z.string().optional(),
         price: z.string().optional(),
         slug: z.string().optional(),
         description: z.string().optional(),

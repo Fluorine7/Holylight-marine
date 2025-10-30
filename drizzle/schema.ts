@@ -56,6 +56,24 @@ export type ProductCategory = typeof productCategories.$inferSelect;
 export type InsertProductCategory = typeof productCategories.$inferInsert;
 
 /**
+ * 品牌表
+ */
+export const brands = mysqlTable("brands", {
+  id: int("id").primaryKey().autoincrement(),
+  name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  logoUrl: text("logoUrl"),
+  website: text("website"),
+  order: int("order").default(0).notNull(),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
+});
+
+export type Brand = typeof brands.$inferSelect;
+export type InsertBrand = typeof brands.$inferInsert;
+
+/**
  * 合作伙伴表
  */
 export const partners = mysqlTable("partners", {
@@ -78,9 +96,9 @@ export type InsertPartner = typeof partners.$inferInsert;
 export const products = mysqlTable("products", {
   id: int("id").primaryKey().autoincrement(),
   categoryId: int("categoryId").notNull(), // 所属分类ID
+  brandId: int("brandId"), // 品牌ID，外键关联brands表
   name: varchar("name", { length: 500 }).notNull(),
   model: varchar("model", { length: 200 }), // 型号
-  brand: varchar("brand", { length: 200 }), // 品牌
   slug: varchar("slug", { length: 500 }).notNull().unique(),
   description: text("description"), // 产品描述
   specifications: text("specifications"), // 产品参数（JSON格式）

@@ -1,0 +1,190 @@
+{
+  "query": "SELECT id, name, parentId FROM productCategories \nWHERE name IN ('Rule', 'Jabsco', 'Flojet', 'CEM', 'rule', 'RULE', 'Italwinch', 'Multiflex', 'LS', 'Dometic', 'Blusea', 'Roca', 'Speich', 'Decca', 'roca', 'Exalto', 'Marco', 'KUS', 'PYI', 'Polyform 挪威', 'Martyr', 'Ritchie', 'TECMA', 'Planus', 'Fireboy', 'Marinco', 'TECNICOMAR', 'Aquaprime', 'Griffin', 'Victron')\nORDER BY name",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, name, parentId FROM productCategories \nWHERE name IN ('Rule', 'Jabsco', 'Flojet', 'CEM', 'rule', 'RULE', 'Italwinch', 'Multiflex', 'LS', 'Dometic', 'Blusea', 'Roca', 'Speich', 'Decca', 'roca', 'Exalto', 'Marco', 'KUS', 'PYI', 'Polyform 挪威', 'Martyr', 'Ritchie', 'TECMA', 'Planus', 'Fireboy', 'Marinco', 'TECNICOMAR', 'Aquaprime', 'Griffin', 'Victron')\nORDER BY name",
+  "rows": [
+    {
+      "id": "119",
+      "name": "Aquaprime",
+      "parentId": "116"
+    },
+    {
+      "id": "77",
+      "name": "Blusea",
+      "parentId": "76"
+    },
+    {
+      "id": "36",
+      "name": "CEM",
+      "parentId": "25"
+    },
+    {
+      "id": "55",
+      "name": "CEM",
+      "parentId": "50"
+    },
+    {
+      "id": "87",
+      "name": "Decca",
+      "parentId": "78"
+    },
+    {
+      "id": "83",
+      "name": "Decca",
+      "parentId": "78"
+    },
+    {
+      "id": "70",
+      "name": "Dometic",
+      "parentId": "65"
+    },
+    {
+      "id": "123",
+      "name": "Dometic",
+      "parentId": "122"
+    },
+    {
+      "id": "85",
+      "name": "Exalto",
+      "parentId": "78"
+    },
+    {
+      "id": "113",
+      "name": "Fireboy",
+      "parentId": "112"
+    },
+    {
+      "id": "34",
+      "name": "Flojet",
+      "parentId": "25"
+    },
+    {
+      "id": "121",
+      "name": "Griffin",
+      "parentId": "116"
+    },
+    {
+      "id": "61",
+      "name": "Italwinch",
+      "parentId": "60"
+    },
+    {
+      "id": "29",
+      "name": "Jabsco",
+      "parentId": "25"
+    },
+    {
+      "id": "53",
+      "name": "Jabsco",
+      "parentId": "50"
+    },
+    {
+      "id": "107",
+      "name": "Jabsco",
+      "parentId": "106"
+    },
+    {
+      "id": "91",
+      "name": "KUS",
+      "parentId": "90"
+    },
+    {
+      "id": "68",
+      "name": "LS",
+      "parentId": "65"
+    },
+    {
+      "id": "89",
+      "name": "Marco",
+      "parentId": "88"
+    },
+    {
+      "id": "115",
+      "name": "Marinco",
+      "parentId": "114"
+    },
+    {
+      "id": "99",
+      "name": "Martyr",
+      "parentId": "98"
+    },
+    {
+      "id": "66",
+      "name": "Multiflex",
+      "parentId": "65"
+    },
+    {
+      "id": "95",
+      "name": "PYI",
+      "parentId": "94"
+    },
+    {
+      "id": "111",
+      "name": "Planus",
+      "parentId": "106"
+    },
+    {
+      "id": "97",
+      "name": "Polyform 挪威",
+      "parentId": "96"
+    },
+    {
+      "id": "58",
+      "name": "RULE",
+      "parentId": "50"
+    },
+    {
+      "id": "105",
+      "name": "Ritchie",
+      "parentId": "104"
+    },
+    {
+      "id": "80",
+      "name": "Roca",
+      "parentId": "78"
+    },
+    {
+      "id": "26",
+      "name": "Rule",
+      "parentId": "25"
+    },
+    {
+      "id": "51",
+      "name": "Rule",
+      "parentId": "50"
+    },
+    {
+      "id": "82",
+      "name": "Speich",
+      "parentId": "78"
+    },
+    {
+      "id": "110",
+      "name": "TECMA",
+      "parentId": "106"
+    },
+    {
+      "id": "117",
+      "name": "TECNICOMAR",
+      "parentId": "116"
+    },
+    {
+      "id": "125",
+      "name": "Victron",
+      "parentId": "127"
+    },
+    {
+      "id": "84",
+      "name": "roca",
+      "parentId": "78"
+    },
+    {
+      "id": "48",
+      "name": "rule",
+      "parentId": "25"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tparentId\n119\tAquaprime\t116\n77\tBlusea\t76\n36\tCEM\t25\n55\tCEM\t50\n87\tDecca\t78\n83\tDecca\t78\n70\tDometic\t65\n123\tDometic\t122\n85\tExalto\t78\n113\tFireboy\t112\n34\tFlojet\t25\n121\tGriffin\t116\n61\tItalwinch\t60\n29\tJabsco\t25\n53\tJabsco\t50\n107\tJabsco\t106\n91\tKUS\t90\n68\tLS\t65\n89\tMarco\t88\n115\tMarinco\t114\n99\tMartyr\t98\n66\tMultiflex\t65\n95\tPYI\t94\n111\tPlanus\t106\n97\tPolyform 挪威\t96\n58\tRULE\t50\n105\tRitchie\t104\n80\tRoca\t78\n26\tRule\t25\n51\tRule\t50\n82\tSpeich\t78\n110\tTECMA\t106\n117\tTECNICOMAR\t116\n125\tVictron\t127\n84\troca\t78\n48\trule\t25\n",
+  "stderr": "",
+  "execution_time_ms": 1501
+}

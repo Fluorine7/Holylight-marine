@@ -1,0 +1,22 @@
+{
+  "query": "SELECT id, name, parentId, \n(SELECT name FROM productCategories p2 WHERE p2.id = p1.parentId) as parent_name\nFROM productCategories p1 \nWHERE name IN ('海水淡化装置', '油水分离器')",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, name, parentId, \n(SELECT name FROM productCategories p2 WHERE p2.id = p1.parentId) as parent_name\nFROM productCategories p1 \nWHERE name IN ('海水淡化装置', '油水分离器')",
+  "rows": [
+    {
+      "id": "120",
+      "name": "油水分离器",
+      "parentId": "116",
+      "parent_name": "污水处理装置"
+    },
+    {
+      "id": "118",
+      "name": "海水淡化装置",
+      "parentId": "116",
+      "parent_name": "污水处理装置"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tparentId\tparent_name\n120\t油水分离器\t116\t污水处理装置\n118\t海水淡化装置\t116\t污水处理装置\n",
+  "stderr": "",
+  "execution_time_ms": 1603
+}

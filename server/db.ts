@@ -11,6 +11,9 @@ import {
   productCategories,
   ProductCategory,
   InsertProductCategory,
+  brands,
+  Brand,
+  InsertBrand,
   products,
   Product,
   InsertProduct,
@@ -233,6 +236,74 @@ export async function deleteProductCategory(id: number): Promise<void> {
   if (!db) throw new Error("Database not available");
   
   await db.delete(productCategories).where(eq(productCategories.id, id));
+}
+
+// ========== 品牌相关操作 ==========
+
+export async function getAllBrands(): Promise<Brand[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db.select().from(brands).orderBy(brands.order);
+  return result;
+}
+
+export async function getActiveBrands(): Promise<Brand[]> {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const result = await db.select().from(brands)
+    .where(eq(brands.isActive, true))
+    .orderBy(brands.order);
+  return result;
+}
+
+export async function getBrandById(id: number): Promise<Brand | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  
+  const result = await db.select().from(brands).where(eq(brands.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function createBrand(brand: InsertBrand): Promise<Brand> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  // Ensure slug is unique
+  brand.slug = await ensureSlug(brand.slug, async (slug) => {
+    const existing = await db.select().from(brands).where(eq(brands.slug, slug)).limit(1);
+    return existing.length > 0;
+  });
+  
+  const result = await db.insert(brands).values(brand);
+  const id = Number(result[0].insertId);
+  const created = await db.select().from(brands).where(eq(brands.id, id)).limit(1);
+  return created[0];
+}
+
+export async function updateBrand(id: number, data: Partial<InsertBrand>): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  // If slug is being updated, ensure it's unique
+  if (data.slug) {
+    data.slug = await ensureSlug(data.slug, async (slug) => {
+      const existing = await db.select().from(brands)
+        .where(eq(brands.slug, slug))
+        .limit(1);
+      return existing.length > 0 && existing[0].id !== id;
+    });
+  }
+  
+  await db.update(brands).set(data).where(eq(brands.id, id));
+}
+
+export async function deleteBrand(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  await db.delete(brands).where(eq(brands.id, id));
 }
 
 // ========== 合作伙伴相关操作 ==========

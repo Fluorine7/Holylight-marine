@@ -1,0 +1,86 @@
+{
+  "query": "SELECT id, name FROM productCategories WHERE parentId IS NULL ORDER BY id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, name FROM productCategories WHERE parentId IS NULL ORDER BY id",
+  "rows": [
+    {
+      "id": "25",
+      "name": "水泵"
+    },
+    {
+      "id": "50",
+      "name": "通风系统"
+    },
+    {
+      "id": "60",
+      "name": "锚机"
+    },
+    {
+      "id": "65",
+      "name": "舵机"
+    },
+    {
+      "id": "76",
+      "name": "电池开关"
+    },
+    {
+      "id": "78",
+      "name": "雨刮器"
+    },
+    {
+      "id": "88",
+      "name": "喇叭"
+    },
+    {
+      "id": "90",
+      "name": "液位计"
+    },
+    {
+      "id": "94",
+      "name": "尾轴密封"
+    },
+    {
+      "id": "96",
+      "name": "碰球"
+    },
+    {
+      "id": "98",
+      "name": "锌块"
+    },
+    {
+      "id": "104",
+      "name": "磁罗经"
+    },
+    {
+      "id": "106",
+      "name": "马桶"
+    },
+    {
+      "id": "112",
+      "name": "灭火器"
+    },
+    {
+      "id": "114",
+      "name": "岸电插头插座"
+    },
+    {
+      "id": "116",
+      "name": "污水处理装置"
+    },
+    {
+      "id": "122",
+      "name": "冰箱"
+    },
+    {
+      "id": "124",
+      "name": "充电器"
+    },
+    {
+      "id": "126",
+      "name": "逆变器"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\n25\t水泵\n50\t通风系统\n60\t锚机\n65\t舵机\n76\t电池开关\n78\t雨刮器\n88\t喇叭\n90\t液位计\n94\t尾轴密封\n96\t碰球\n98\t锌块\n104\t磁罗经\n106\t马桶\n112\t灭火器\n114\t岸电插头插座\n116\t污水处理装置\n122\t冰箱\n124\t充电器\n126\t逆变器\n",
+  "stderr": "",
+  "execution_time_ms": 1552
+}

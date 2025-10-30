@@ -1,0 +1,25 @@
+{
+  "query": "SELECT c1.id, c1.name, c1.parentId \nFROM productCategories c1 \nLEFT JOIN productCategories c2 ON c1.parentId = c2.id \nWHERE c1.parentId IS NOT NULL AND c2.id IS NULL",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT c1.id, c1.name, c1.parentId \nFROM productCategories c1 \nLEFT JOIN productCategories c2 ON c1.parentId = c2.id \nWHERE c1.parentId IS NOT NULL AND c2.id IS NULL",
+  "rows": [
+    {
+      "id": "124",
+      "name": "充电器",
+      "parentId": "127"
+    },
+    {
+      "id": "125",
+      "name": "Victron",
+      "parentId": "127"
+    },
+    {
+      "id": "126",
+      "name": "逆变器",
+      "parentId": "127"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tparentId\n124\t充电器\t127\n125\tVictron\t127\n126\t逆变器\t127\n",
+  "stderr": "",
+  "execution_time_ms": 1735
+}

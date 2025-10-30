@@ -12,6 +12,7 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import ProductsPage from "./pages/admin/Products";
 import ProductFormPage from "./pages/admin/ProductForm";
 import CategoriesPage from "./pages/admin/Categories";
+import BrandsPage from "./pages/admin/Brands";
 import NewsManagementPage from "./pages/admin/NewsManagement";
 import NewsFormPage from "./pages/admin/NewsForm";
 import Login from "./pages/Login";
@@ -38,6 +39,7 @@ function Router() {
       <Route path={"/admin/products/new"} component={ProductFormPage} />
       <Route path={"/admin/products/edit/:id"} component={ProductFormPage} />
       <Route path={"/admin/categories"} component={CategoriesPage} />
+      <Route path={"/admin/brands"} component={BrandsPage} />
       <Route path={"/admin/news"} component={NewsManagementPage} />
       <Route path={"/admin/news/new"} component={NewsFormPage} />
       <Route path={"/admin/news/edit/:id"} component={NewsFormPage} />

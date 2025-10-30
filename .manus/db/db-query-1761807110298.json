@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, name, parentId FROM productCategories WHERE parentId IN (124, 126)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT id, name, parentId FROM productCategories WHERE parentId IN (124, 126)",
+  "rows": [
+    {
+      "id": "125",
+      "name": "Victron",
+      "parentId": "124"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tparentId\n125\tVictron\t124\n",
+  "stderr": "",
+  "execution_time_ms": 1526
+}

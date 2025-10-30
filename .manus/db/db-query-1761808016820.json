@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO productCategories (name, slug, parentId, `order`, isActive) VALUES ('不便分类的产品', 'uncategorized', NULL, 999, 1)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute INSERT INTO productCategories (name, slug, parentId, `order`, isActive) VALUES ('不便分类的产品', 'uncategorized', NULL, 999, 1)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1575
+}
