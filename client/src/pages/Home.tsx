@@ -44,35 +44,35 @@ export default function Home() {
     name: c.name,
     imageUrl: c.imageUrl,
     description: c.description || "",
-    path: "/shop",
+    path: "/product",
   })) : [
     {
       id: 1,
       name: "舷外机船配套",
       imageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop",
       description: "专业的舷外机配套产品和解决方案",
-      path: "/shop",
+      path: "/product",
     },
     {
       id: 2,
       name: "游艇",
       imageUrl: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=400&h=300&fit=crop",
       description: "高端游艇配套设备和系统",
-      path: "/shop",
+      path: "/product",
     },
     {
       id: 3,
       name: "商业船",
       imageUrl: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=400&h=300&fit=crop",
       description: "商业船舶配套产品和服务",
-      path: "/shop",
+      path: "/product",
     },
     {
       id: 4,
       name: "房车",
       imageUrl: "https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=400&h=300&fit=crop",
       description: "房车配套系统和解决方案",
-      path: "/shop",
+      path: "/product",
     },
   ];
 
@@ -305,7 +305,7 @@ export default function Home() {
               ))}
             </div>
             <div className="text-center mt-8">
-              <Link href="/shop">
+              <Link href="/product">
                 <Button variant="outline" size="lg">
                   更多
                 </Button>

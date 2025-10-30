@@ -38,7 +38,7 @@ export default function ProductDetail() {
         <Navbar />
         <div className="container mx-auto px-4 py-20 mt-20 text-center">
           <p className="text-gray-500">产品不存在</p>
-          <Link href="/shop" className="text-primary hover:underline mt-4 inline-block">
+          <Link href="/product" className="text-primary hover:underline mt-4 inline-block">
             返回产品列表
           </Link>
         </div>
@@ -79,7 +79,7 @@ export default function ProductDetail() {
             首页
           </Link>
           <span>/</span>
-          <Link href="/shop" className="hover:text-primary">
+          <Link href="/product" className="hover:text-primary">
             产品
           </Link>
           {category && (
@@ -173,7 +173,7 @@ export default function ProductDetail() {
                 <div className="mb-4">
                   <span className="text-gray-600">分类：</span>
                   <Link
-                    href="/shop"
+                    href="/product"
                     className="text-primary hover:underline font-medium"
                   >
                     {category.name}

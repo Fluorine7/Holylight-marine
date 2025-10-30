@@ -16,6 +16,10 @@ interface Category {
 }
 
 export default function ProductShop() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("default");
@@ -125,7 +129,7 @@ export default function ProductShop() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-8 mt-20">
+      <div className="container mx-auto px-4 py-8 mt-32">
         <div className="flex gap-6">
           {/* 左侧分类导航 */}
           <aside className="w-64 flex-shrink-0">

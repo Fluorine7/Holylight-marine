@@ -21,7 +21,7 @@ export default function Navbar() {
 
   const navItems = [
     { name: "首页", path: "/" },
-    { name: "产品展示", path: "/shop" },
+    { name: "产品展示", path: "/product" },
     { name: "技术支持", path: "/support" },
     { name: "新闻动态", path: "/news" },
     { name: "联系我们", path: "/contact" },
@@ -30,8 +30,8 @@ export default function Navbar() {
   // 搜索功能
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      // 跳转到新闻页面并传递搜索参数
-      navigate(`/news?search=${encodeURIComponent(searchQuery.trim())}`);
+      // 跳转到搜索结果页面
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery("");
       setIsMobileMenuOpen(false);
     }

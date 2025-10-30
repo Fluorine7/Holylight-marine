@@ -8,7 +8,9 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import ProductShop from "./pages/ProductShop";
 import ProductDetail from "./pages/ProductDetail";
-import AdminDashboard from "./pages/admin/Dashboard";
+import Support from "./pages/Support";
+import SearchResults from "./pages/SearchResults";
+import Dashboard from "./pages/admin/Dashboard";
 import ProductsPage from "./pages/admin/Products";
 import ProductFormPage from "./pages/admin/ProductForm";
 import CategoriesPage from "./pages/admin/Categories";
@@ -26,9 +28,10 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
-      <Route path={"/shop"} component={ProductShop} />
+      <Route path={"/product"} component={ProductShop} />
       <Route path={"/product/:id"} component={ProductDetail} />
       <Route path={"/support"} component={Support} />
+      <Route path={"/search"} component={SearchResults} />
       <Route path={"/news"} component={News} />
       <Route path={"/news/:slug"} component={NewsDetail} />
       <Route path={"/contact"} component={Contact} />

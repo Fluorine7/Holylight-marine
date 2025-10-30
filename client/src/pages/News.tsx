@@ -13,6 +13,11 @@ export default function News() {
   // 从数据库加载新闻
   const { data: newsData = [], isLoading } = trpc.news.list.useQuery();
 
+  // 页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // 监听滚动显示返回顶部按钮
   useEffect(() => {
     const handleScroll = () => {
