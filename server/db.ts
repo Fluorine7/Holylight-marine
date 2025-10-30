@@ -457,7 +457,17 @@ export async function createProduct(
   }
 
   console.log('[createProduct] Final values before insert:', JSON.stringify(values, null, 2));
-  const result = await db.insert(products).values(values);
+  
+  // Use raw SQL to bypass drizzle ORM issues
+  const fields = Object.keys(values);
+  const placeholders = fields.map(() => '?').join(', ');
+  const sql = `INSERT INTO products (${fields.join(', ')}) VALUES (${placeholders})`;
+  const params = fields.map(f => values[f]);
+  
+  console.log('[createProduct] SQL:', sql);
+  console.log('[createProduct] Params:', params);
+  
+  const result = await db.execute(sql, params);
   const id = Number(result[0].insertId);
   const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
   return created[0];
