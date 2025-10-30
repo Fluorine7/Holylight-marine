@@ -7,10 +7,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 PASSWORD_FILE="$PROJECT_ROOT/.admin-password"
 
-# 生成随机强密码（20位，包含大小写字母、数字和特殊字符）
+# 生成随机强密码（10位，包含大小写字母、数字和特殊字符）
 generate_password() {
     # 使用openssl生成随机密码
-    openssl rand -base64 32 | tr -d "=+/" | cut -c1-20
+    openssl rand -base64 32 | tr -d "=+/" | cut -c1-10
 }
 
 # 显示密码

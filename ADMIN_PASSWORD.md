@@ -125,7 +125,7 @@ cd /www/wwwroot/holylight-marine
 
 ## 技术细节
 
-- **密码长度**：20位
+- **密码长度**：10位
 - **字符集**：大小写字母、数字、特殊字符
 - **哈希算法**：bcrypt (cost factor: 10)
 - **存储位置**：`/www/wwwroot/holylight-marine/.admin-password`
