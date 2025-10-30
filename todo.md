@@ -233,3 +233,10 @@
 - [x] 修复首页新闻资讯“更多”按钮跳转后页面滚动位置（News页面添加useEffect滚动到顶部）
 - [x] 实现搜索功能：创建搜索结果页面，支持搜索产品和新闻，带标签页切换
 
+
+
+## Bug修复 (2025-10-30 晚上)
+- [x] 修复App.tsx的import错误（AdminDashboard未定义）
+- [x] 修复ProductShop.tsx缺少useEffect导入的错误
+- [x] 修复SearchResults.tsx的URL参数解析问题（使用window.location.search）
+

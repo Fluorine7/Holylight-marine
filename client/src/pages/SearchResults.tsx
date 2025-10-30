@@ -7,14 +7,17 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 
 export default function SearchResults() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const query = searchParams.get('q') || '';
+  const [location] = useLocation();
+  const [query, setQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'products' | 'news'>('products');
 
-  // 页面加载时滚动到顶部
+  // 监听URL参数变化
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const newQuery = searchParams.get('q') || '';
+    setQuery(newQuery);
     window.scrollTo(0, 0);
-  }, []);
+  }, [location]);
 
   // 搜索产品
   const { data: allProducts = [] } = trpc.products.listAll.useQuery();
