@@ -28,11 +28,17 @@ function CategoryFormContent() {
   const [imageUrl, setImageUrl] = useState("");
   const [order, setOrder] = useState(0);
   const [isActive, setIsActive] = useState(true);
+  const [parentId, setParentId] = useState<number | null>(null);
 
   const { data: category } = trpc.productCategories.getById.useQuery(
     { id: categoryId! },
     { enabled: !!categoryId }
   );
+
+  const { data: allCategories } = trpc.productCategories.listAll.useQuery();
+  
+  // 获取所有一级分类（用于父分类选择）
+  const topLevelCategories = allCategories?.filter(c => c.parentId === null && c.id !== categoryId) || [];
 
   const utils = trpc.useUtils();
   const createMutation = trpc.productCategories.create.useMutation({
@@ -57,6 +63,7 @@ function CategoryFormContent() {
       setImageUrl(category.imageUrl || "");
       setOrder(category.order);
       setIsActive(category.isActive);
+      setParentId(category.parentId);
     }
   }, [category]);
 
@@ -68,7 +75,7 @@ function CategoryFormContent() {
       slug: slug || name.toLowerCase().replace(/\s+/g, "-"),
       description: description || null,
       imageUrl: imageUrl || null,
-      parentId: null,
+      parentId: parentId,
       order,
       isActive,
     };
@@ -151,6 +158,26 @@ function CategoryFormContent() {
                 />
               </div>
             )}
+          </div>
+
+          <div>
+            <Label htmlFor="parentId">父分类</Label>
+            <select
+              id="parentId"
+              value={parentId || ""}
+              onChange={(e) => setParentId(e.target.value ? parseInt(e.target.value) : null)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="">无（一级分类）</option>
+              {topLevelCategories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+            <p className="text-sm text-gray-500 mt-1">
+              选择父分类后，此分类将成为二级分类
+            </p>
           </div>
 
           <div>
