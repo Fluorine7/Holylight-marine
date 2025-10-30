@@ -70,20 +70,25 @@ function CategoryFormContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const data = {
-      name,
-      slug: slug || name.toLowerCase().replace(/\s+/g, "-"),
-      description: description || null,
-      imageUrl: imageUrl || null,
-      parentId: parentId,
-      order,
-      isActive,
-    };
+    try {
+      const data = {
+        name,
+        slug: slug || name.toLowerCase().replace(/\s+/g, "-"),
+        description: description || null,
+        imageUrl: imageUrl || null,
+        parentId: parentId,
+        order,
+        isActive,
+      };
 
-    if (categoryId) {
-      await updateMutation.mutateAsync({ id: categoryId, ...data });
-    } else {
-      await createMutation.mutateAsync(data);
+      if (categoryId) {
+        await updateMutation.mutateAsync({ id: categoryId, ...data });
+      } else {
+        await createMutation.mutateAsync(data);
+      }
+    } catch (error) {
+      console.error('保存分类失败:', error);
+      alert(`保存失败: ${error instanceof Error ? error.message : '未知错误'}`);
     }
   };
 
