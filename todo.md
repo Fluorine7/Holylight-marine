@@ -251,3 +251,13 @@
 ## 后台管理功能增强 (2025-10-30 晚上)
 - [x] 在CategoryForm中添加父分类选择功能，支持创建和编辑二级分类
 
+
+
+## CategoryForm Bug修复 (2025-10-30 晚上)
+- [x] 修复创建分类时的null值错误（将description、imageUrl、parentId的null改为undefined）
+
+
+
+## 分类管理UI改进 (2025-10-30 晚上)
+- [ ] 将分类管理页面改为树状结构显示，父分类和子分类层级清晰
+
