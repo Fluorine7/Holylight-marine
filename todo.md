@@ -239,4 +239,10 @@
 - [x] 修复App.tsx的import错误（AdminDashboard未定义）
 - [x] 修复ProductShop.tsx缺少useEffect导入的错误
 - [x] 修复SearchResults.tsx的URL参数解析问题（使用window.location.search）
+- [x] 修复搜索结果页面URL参数变化时不更新的问题（使用useEffect监听location变化）
+
+
+
+## 后台管理Bug修复 (2025-10-30 晚上)
+- [ ] 修复产品类别管理页面点击编辑出现404的问题
 
