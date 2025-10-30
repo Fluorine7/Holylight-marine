@@ -487,12 +487,27 @@ export async function createProduct(
   console.log('[createProduct] SQL:', sqlQuery);
   console.log('[createProduct] Params:', params);
   
-  const [result] = await pool.execute(sqlQuery, params);
-  const id = Number((result as any).insertId);
-  
-  // Use drizzle to fetch the created product
-  const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
-  return created[0];
+  try {
+    const [result] = await pool.execute(sqlQuery, params);
+    console.log('[createProduct] SQL executed successfully, result:', result);
+    const id = Number((result as any).insertId);
+    console.log('[createProduct] Inserted product ID:', id);
+    
+    // Use drizzle to fetch the created product
+    const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
+    console.log('[createProduct] Fetched created product:', created[0]);
+    return created[0];
+  } catch (error) {
+    console.error('[createProduct] SQL execution error:', error);
+    console.error('[createProduct] Error details:', {
+      message: error instanceof Error ? error.message : String(error),
+      code: (error as any).code,
+      errno: (error as any).errno,
+      sqlState: (error as any).sqlState,
+      sqlMessage: (error as any).sqlMessage,
+    });
+    throw error;
+  }
 }
 
 export async function updateProduct(id: number, data: Partial<InsertProduct>): Promise<void> {
