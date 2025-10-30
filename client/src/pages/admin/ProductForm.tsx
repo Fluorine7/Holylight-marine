@@ -97,6 +97,10 @@ function ProductFormContent() {
         downloads: JSON.stringify(downloads),
         isPublished,
       };
+      
+      console.log('[ProductForm] Submitting data:', JSON.stringify(data, null, 2));
+      console.log('[ProductForm] images array:', images);
+      console.log('[ProductForm] downloads array:', downloads);
 
       if (isEdit) {
         await updateMutation.mutateAsync({ id: productId, ...data });

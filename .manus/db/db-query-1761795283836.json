@@ -1,0 +1,27 @@
+{
+  "query": "SELECT * FROM products WHERE slug = 'test-sql-product'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3ymh12nCSeHu8Na.root --database nb9WvzpHUTfcigQwoxqRAZ --execute SELECT * FROM products WHERE slug = 'test-sql-product'",
+  "rows": [
+    {
+      "id": "60001",
+      "categoryId": "65",
+      "name": "测试产品SQL",
+      "model": "NULL",
+      "brand": "NULL",
+      "slug": "test-sql-product",
+      "description": "NULL",
+      "specifications": "NULL",
+      "price": "NULL",
+      "images": "[]",
+      "downloads": "[]",
+      "order": "0",
+      "isPublished": "1",
+      "createdAt": "2025-10-30 03:34:13",
+      "updatedAt": "2025-10-30 03:34:13"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcategoryId\tname\tmodel\tbrand\tslug\tdescription\tspecifications\tprice\timages\tdownloads\torder\tisPublished\tcreatedAt\tupdatedAt\n60001\t65\t测试产品SQL\tNULL\tNULL\ttest-sql-product\tNULL\tNULL\tNULL\t[]\t[]\t0\t1\t2025-10-30 03:34:13\t2025-10-30 03:34:13\n",
+  "stderr": "",
+  "execution_time_ms": 1512
+}
