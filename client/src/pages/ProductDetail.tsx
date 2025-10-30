@@ -39,7 +39,7 @@ export default function ProductDetail() {
         <div className="container mx-auto px-4 py-20 mt-20 text-center">
           <p className="text-gray-500">产品不存在</p>
           <Link href="/shop" className="text-primary hover:underline mt-4 inline-block">
-            返回商店
+            返回产品列表
           </Link>
         </div>
         <Footer />
@@ -72,7 +72,7 @@ export default function ProductDetail() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="container mx-auto px-4 py-8 mt-20">
+      <div className="container mx-auto px-4 py-8 mt-32">
         {/* 面包屑导航 */}
         <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
           <Link href="/" className="hover:text-primary">
@@ -80,7 +80,7 @@ export default function ProductDetail() {
           </Link>
           <span>/</span>
           <Link href="/shop" className="hover:text-primary">
-            商店
+            产品
           </Link>
           {category && (
             <>
