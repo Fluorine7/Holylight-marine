@@ -33,13 +33,11 @@ export function registerOAuthRoutes(app: Express) {
           return;
         }
 
-        // 密码正确，
-          // 更新最后登录时间
-          await db.upsertUser({
-            ...user,
-            lastSignedIn: new Date(),
-          });
-        }
+        // 密码正确，更新最后登录时间
+        await db.upsertUser({
+          ...user,
+          lastSignedIn: new Date(),
+        });
 
         // 创建会话token
         const sessionToken = await sdk.createSessionToken("admin", {
