@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Search, Grid, List, ChevronDown, ChevronRight } from "lucide-react";
 import { trpc } from "../lib/trpc";
 import { Link } from "wouter";
