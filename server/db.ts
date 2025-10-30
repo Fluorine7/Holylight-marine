@@ -480,7 +480,9 @@ export async function createProduct(
   
   const fields = Object.keys(values);
   const params = fields.map(f => values[f]);
-  const sqlQuery = `INSERT INTO products (${fields.join(', ')}) VALUES (${fields.map(() => '?').join(', ')})`;
+  // Wrap field names in backticks to handle reserved keywords like 'order'
+  const fieldNames = fields.map(f => `\`${f}\``).join(', ');
+  const sqlQuery = `INSERT INTO products (${fieldNames}) VALUES (${fields.map(() => '?').join(', ')})`;
   
   console.log('[createProduct] SQL:', sqlQuery);
   console.log('[createProduct] Params:', params);
