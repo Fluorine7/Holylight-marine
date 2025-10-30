@@ -7,8 +7,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 
 export default function SearchResults() {
-  const [location] = useLocation();
-  const searchParams = new URLSearchParams(location.split('?')[1]);
+  const searchParams = new URLSearchParams(window.location.search);
   const query = searchParams.get('q') || '';
   const [activeTab, setActiveTab] = useState<'products' | 'news'>('products');
 
