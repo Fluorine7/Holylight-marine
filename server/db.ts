@@ -1,6 +1,7 @@
 import { eq, isNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { sql } from "drizzle-orm";
+import mysql from 'mysql2/promise';
 import {
   InsertUser,
   users,
@@ -27,6 +28,7 @@ import { ENV } from './_core/env';
 import { ensureSlug } from "./_core/slug";
 
 let _db: ReturnType<typeof drizzle> | null = null;
+let _pool: mysql.Pool | null = null;
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
@@ -39,6 +41,19 @@ export async function getDb() {
     }
   }
   return _db;
+}
+
+// Get raw mysql2 connection pool
+export async function getPool() {
+  if (!_pool && process.env.DATABASE_URL) {
+    try {
+      _pool = mysql.createPool(process.env.DATABASE_URL);
+    } catch (error) {
+      console.warn("[Database] Failed to create pool:", error);
+      _pool = null;
+    }
+  }
+  return _pool;
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {
@@ -459,17 +474,21 @@ export async function createProduct(
 
   console.log('[createProduct] Final values before insert:', JSON.stringify(values, null, 2));
   
-  // Use raw SQL with proper parameter binding
+  // Use mysql2 directly to bypass all drizzle issues
+  const pool = await getPool();
+  if (!pool) throw new Error("Database pool not available");
+  
   const fields = Object.keys(values);
   const params = fields.map(f => values[f]);
+  const sqlQuery = `INSERT INTO products (${fields.join(', ')}) VALUES (${fields.map(() => '?').join(', ')})`;
   
-  const query = sql.raw(`INSERT INTO products (${fields.join(', ')}) VALUES (${fields.map(() => '?').join(', ')})`, params);
+  console.log('[createProduct] SQL:', sqlQuery);
+  console.log('[createProduct] Params:', params);
   
-  console.log('[createProduct] SQL fields:', fields);
-  console.log('[createProduct] SQL params:', params);
+  const [result] = await pool.execute(sqlQuery, params);
+  const id = Number((result as any).insertId);
   
-  const result = await db.execute(query);
-  const id = Number(result[0].insertId);
+  // Use drizzle to fetch the created product
   const created = await db.select().from(products).where(eq(products.id, id)).limit(1);
   return created[0];
 }
