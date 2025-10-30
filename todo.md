@@ -269,3 +269,12 @@
 - [x] 提供查看密码的命令（只能通过SSH访问）
 - [x] 编写详细的密码管理文档（ADMIN_PASSWORD.md）
 
+
+
+## 密码认证系统改造 (2025-10-30 晚上)
+- [ ] 在users表schema中添加password字段
+- [ ] 运行数据库迁移添加password列
+- [ ] 修改oauth.ts的登录逻辑，从数据库验证密码哈希
+- [ ] 修改update-admin-password.cjs脚本，使其能正确更新数据库
+- [ ] 为admin用户生成初始密码哈希
+
