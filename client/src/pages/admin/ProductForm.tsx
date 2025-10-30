@@ -188,17 +188,29 @@ function ProductFormContent() {
                 <option value="">请选择分类</option>
                 {categories
                   ?.filter(c => !c.parentId) // 一级分类
-                  .map((parent) => (
-                    <optgroup key={parent.id} label={parent.name}>
-                      {categories
-                        .filter(c => c.parentId === parent.id) // 二级分类
-                        .map((child) => (
-                          <option key={child.id} value={child.id}>
-                            {child.name}
-                          </option>
-                        ))}
-                    </optgroup>
-                  ))}
+                  .map((parent) => {
+                    const children = categories.filter(c => c.parentId === parent.id);
+                    
+                    // 如果有二级分类，使用optgroup
+                    if (children.length > 0) {
+                      return (
+                        <optgroup key={parent.id} label={parent.name}>
+                          {children.map((child) => (
+                            <option key={child.id} value={child.id}>
+                              {child.name}
+                            </option>
+                          ))}
+                        </optgroup>
+                      );
+                    }
+                    
+                    // 如果没有二级分类，直接显示一级分类作为可选项
+                    return (
+                      <option key={parent.id} value={parent.id}>
+                        {parent.name}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
 
