@@ -107,10 +107,7 @@ export default function Login() {
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <p>默认账号：admin / admin123</p>
-          <p className="text-xs mt-1">首次登录后请修改密码</p>
-        </div>
+
       </div>
     </div>
   );
