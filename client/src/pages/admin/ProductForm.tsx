@@ -299,26 +299,6 @@ function ProductFormContent() {
               existingFiles={images}
               onUploadComplete={(urls) => setImages([...images, ...urls])}
             />
-            {images.length > 0 && (
-              <div className="mt-4 grid grid-cols-4 gap-4">
-                {images.map((url, index) => (
-                  <div key={index} className="relative group">
-                    <img
-                      src={url}
-                      alt={`产品图片 ${index + 1}`}
-                      className="w-full h-32 object-cover rounded-lg"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setImages(images.filter((_, i) => i !== index))}
-                      className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
 
           <div>
@@ -340,11 +320,10 @@ function ProductFormContent() {
                 label="上传资料文件"
                 existingFiles={[]}
                 onUploadComplete={(urls) => {
-                  if (urls.length > 0 && downloadName.trim()) {
-                    setDownloads([...downloads, { name: downloadName.trim(), url: urls[0] }]);
+                  if (urls.length > 0) {
+                    const name = downloadName.trim() || urls[0].split('/').pop() || '产品资料';
+                    setDownloads([...downloads, { name, url: urls[0] }]);
                     setDownloadName("");
-                  } else if (!downloadName.trim()) {
-                    toast.error("请先输入资料名称");
                   }
                 }}
               />
