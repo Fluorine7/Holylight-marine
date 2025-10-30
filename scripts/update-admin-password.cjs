@@ -32,11 +32,18 @@ console.log('');
 // 动态导入bcryptjs
 let bcrypt;
 try {
-  bcrypt = require('bcryptjs');
+  // 尝试从项目node_modules导入
+  bcrypt = require(path.join(projectRoot, 'node_modules', 'bcryptjs'));
 } catch (err) {
-  console.error('❌ 错误：bcryptjs模块未安装');
-  console.error('请先运行: pnpm install');
-  process.exit(1);
+  try {
+    // 尝试直接导入
+    bcrypt = require('bcryptjs');
+  } catch (err2) {
+    console.error('❌ 错误：bcryptjs模块未安装');
+    console.error('请先运行: pnpm install');
+    console.error('错误详情:', err2.message);
+    process.exit(1);
+  }
 }
 
 // 生成哈希值
